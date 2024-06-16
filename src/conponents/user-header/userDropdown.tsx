@@ -1,8 +1,10 @@
+import UserDropdownContent from "./userDropdownContent";
+
 const UserDropdown = () => {
   return (
-    <div className="relative p-4 w-full max-w-md max-h-full">
+    <div className="relative  w-full max-w-md max-h-full">
       {/* Modal content */}
-      <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
+      <div className="relative bg-white rounded-lg shadow dark:bg-gray-700 border">
         {/* Modal header */}
         <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
@@ -31,34 +33,7 @@ const UserDropdown = () => {
             <span className="sr-only">Close modal</span>
           </button>
         </div>
-        {/* Modal body */}
-        <div className="p-4 md:p-5">
-          <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <div>
-              <a
-                href="/"
-                className="inline-flex items-center text-xs font-normal text-gray-500 hover:underline dark:text-gray-400"
-              >
-                <svg
-                  className="w-3 h-3 me-2"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M7.529 7.988a2.502 2.502 0 0 1 5 .191A2.441 2.441 0 0 1 10 10.582V12m-.01 3.008H10M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                  />
-                </svg>
-                Why do I need to connect with my wallet?
-              </a>
-            </div>
-          </div>
-        </div>
+        <UserDropdownContent />
       </div>
     </div>
   );

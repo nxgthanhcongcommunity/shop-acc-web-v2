@@ -7,7 +7,10 @@ const UserHeader = () => {
 
   return (
     <div className="flex gap-x-2 relative" ref={dropDownRef}>
-      <div className="flex gap-x-2 relative" onClick={handleClick}>
+      <div
+        className="flex gap-x-2 relative cursor-pointer"
+        onClick={handleClick}
+      >
         <div>
           <h4 className="text-sm font-medium">Ng Thanh Cong</h4>
           <p className="text-sm">
@@ -20,7 +23,7 @@ const UserHeader = () => {
           alt=""
         />
       </div>
-      {(isShow || true) && (
+      {isShow && (
         <div
           className="absolute z-20 top-[calc(100%+10px)] right-0 w-96"
           onMouseLeave={handleMouseLeave}

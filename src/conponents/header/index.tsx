@@ -1,3 +1,4 @@
+import { useOutsideClick } from "../../hooks";
 import CategoriesMenu from "../categories-menu";
 import Logo from "../logo";
 import Menu from "../menu";
@@ -5,12 +6,18 @@ import Search from "../search";
 import UserHeader from "../user-header";
 
 const Header = () => {
+  const [isShow, dropDownRef, handleClick, handleMouseLeave] =
+    useOutsideClick<HTMLDivElement>();
+
   return (
-    <nav className="bg-white border-b border-gray-200 dark:bg-gray-800">
-      <div className="flex flex-wrap items-center justify-between max-w-screen-xl mx-auto p-4">
+    <nav className="bg-white border-b border-gray-200 dark:bg-gray-800 fixed left-0 top-0 w-full z-40">
+      <div
+        className="flex flex-wrap items-center justify-between max-w-screen-xl mx-auto p-4 "
+        ref={dropDownRef}
+      >
         <div className="flex items-center gap-x-12">
           <Logo />
-          <Menu />
+          <Menu onClick={handleClick} />
         </div>
         <Search />
         <div className="flex items-center gap-x-4">
@@ -64,7 +71,7 @@ const Header = () => {
           </button>
         </div>
       </div>
-      <CategoriesMenu isShowed={true} />
+      <CategoriesMenu isShow={isShow} onMouseLeave={handleMouseLeave} />
     </nav>
   );
 };

@@ -1,5 +1,5 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { Layout } from "./conponents";
+import { Link, RouterProvider, createBrowserRouter } from "react-router-dom";
+import { BreadcrumbItem, ICONS, Layout } from "./conponents";
 import {
   Account,
   AccountInfo,
@@ -15,28 +15,32 @@ import {
   Product,
   Shop,
 } from "./pages";
+import { ROUTER } from "./constants";
 
 const router = createBrowserRouter(
   [
     {
-      path: "/",
+      path: ROUTER.ROOT,
       element: <Layout />,
       children: [
-        { index: true, element: <Home /> },
         {
-          path: "login",
+          index: true,
+          element: <Home />,
+        },
+        {
+          path: ROUTER.LOGIN,
           element: <Login />,
         },
         {
-          path: "shop",
+          path: ROUTER.SHOP,
           element: <Shop />,
         },
         {
-          path: "product",
+          path: ROUTER.PRODUCT,
           element: <Product />,
         },
         {
-          path: "order",
+          path: ROUTER.ORDER,
           element: <Order />,
           children: [
             {
@@ -44,34 +48,59 @@ const router = createBrowserRouter(
               element: <OrderBasket />,
             },
             {
-              path: "payment",
+              path: ROUTER.PAYMENT,
               element: <OrderPayment />,
             },
             {
-              path: "received",
+              path: ROUTER.RECEIVED,
               element: <OrderReceived />,
             },
           ],
         },
         {
-          path: "account",
+          path: ROUTER.ACCOUNT,
           element: <Account />,
+          handle: {
+            crumb: () => (
+              <BreadcrumbItem
+                path={`/${ROUTER.ACCOUNT}`}
+                title={"Tài khoản"}
+                icon={<ICONS.ACCOUNT className="w-3 h-3" />}
+              />
+            ),
+          },
           children: [
             {
               index: true,
               element: <AccountInfo />,
             },
             {
-              path: "recharge",
+              path: ROUTER.RECHARGE,
               element: <AccountRecharge />,
+              handle: {
+                crumb: (props: any) => {
+                  console.log("props:", props);
+
+                  return (
+                    <BreadcrumbItem
+                      path={ROUTER.RECHARGE}
+                      title={"Nạp thẻ"}
+                      icon={<ICONS.RECHARGE />}
+                    />
+                  );
+                },
+              },
             },
             {
-              path: "received",
+              path: ROUTER.RECEIVED,
               element: <AccountReceived />,
             },
           ],
         },
-        { path: "*", element: <Nomatch /> },
+        {
+          path: ROUTER.ALLROUTER,
+          element: <Nomatch />,
+        },
       ],
     },
   ],
