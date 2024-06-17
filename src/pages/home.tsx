@@ -1,16 +1,38 @@
+import { useEffect, useState } from "react";
 import { HomeCarousel, Section } from "../conponents";
+import { useDispatch, useSelector } from "../stores/hooks";
+import { getByKey, selectMaster } from "../stores/features/masterSlice";
+import React from "react";
 
 const Home = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getByKey("home-page"));
+  }, []);
+
+  const masterData = useSelector(selectMaster);
+
+  const [banners, setBanners] = useState([]);
+
+  useEffect(() => {
+    const { banners } = masterData.entity;
+    setBanners(banners);
+  }, [masterData.loading]);
+
   return (
     <div className="max-w-screen-xl mx-auto pt-6">
       <div className="rounded-2xl overflow-hidden h-96">
         <HomeCarousel />
       </div>
-      <Section />
-      <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"></hr>
-      <Section />
-      <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"></hr>
-      <Section />
+      {banners &&
+        banners.map((banner: any, index: number) => (
+          <React.Fragment key={banner.code}>
+            <Section banner={banner} />
+            {index !== banners.length - 1 && (
+              <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"></hr>
+            )}
+          </React.Fragment>
+        ))}
       <div className="h-16"></div>
     </div>
   );

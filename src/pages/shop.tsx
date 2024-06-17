@@ -16,10 +16,10 @@ const Shop = () => {
       <ShopHeader />
       <div className="grid grid-cols-4 gap-4">
         {[1, 2, 3, 4, 5, 6].map(() => (
-          <CardItem />
+          <CardItem href={""} imgId={""} title={""} listParagraph={[]} />
         ))}
       </div>
-      <Section />
+      {/* <Section banner={undefined} /> */}
     </div>
   );
 };

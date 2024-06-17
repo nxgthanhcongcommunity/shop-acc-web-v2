@@ -1,4 +1,6 @@
-import ICONS from "../icons";
+import { useState } from "react";
+import { CATEGORIES_MENU } from "../../constants";
+import CategoryItem from "./categoryItem";
 
 interface ICategoriesMenuProps {
   isShow: boolean;
@@ -8,56 +10,23 @@ interface ICategoriesMenuProps {
 const CategoriesMenu = (props: ICategoriesMenuProps) => {
   const { isShow, onMouseLeave } = props;
 
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseLeave = () => {
+    onMouseLeave();
+    setIsHovered(false);
+  };
+
   return (
     <div
-      className={`overflow-hidden ease-in-out duration-1000 ${isShow ? "max-h-screen" : "max-h-0"}`}
-      onMouseLeave={onMouseLeave}
+      className={`overflow-hidden ease-in-out duration-1000 ${isShow || isHovered ? "max-h-screen" : "max-h-0"}`}
+      onMouseLeave={handleMouseLeave}
+      onMouseEnter={() => setIsHovered(true)}
     >
       <ul className="flex justify-between items-center max-w-screen-lg mx-auto py-2 ">
-        <li>
-          <a
-            href="/"
-            className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-          >
-            <span className="text-slate-600">
-              <ICONS.RECHARGE />
-            </span>
-            <span className="ms-3 font-medium">Nạp thẻ</span>
-          </a>
-        </li>
-        <li>
-          <a
-            href="/"
-            className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-          >
-            <span className="text-slate-600">
-              <ICONS.GAME />
-            </span>
-            <span className="ms-3 font-medium">Acc reroll</span>
-          </a>
-        </li>
-        <li>
-          <a
-            href="/"
-            className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-          >
-            <span className="text-slate-600">
-              <ICONS.GAME />
-            </span>
-            <span className="ms-3 font-medium">Acc trên 50k</span>
-          </a>
-        </li>
-        <li>
-          <a
-            href="/"
-            className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-          >
-            <span className="text-slate-600">
-              <ICONS.NEWSPAPER />
-            </span>
-            <span className="ms-3 font-medium">Tin tức</span>
-          </a>
-        </li>
+        {CATEGORIES_MENU.map((cateConfig) => (
+          <CategoryItem {...cateConfig} key={cateConfig.title} />
+        ))}
       </ul>
     </div>
   );
