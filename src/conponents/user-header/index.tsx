@@ -5,6 +5,8 @@ import { useSelector } from "../../stores/hooks";
 import { RootState } from "../../stores";
 import ICONS from "../icons";
 import { IAccount } from "../../stores/features/authSlice";
+import IconButton from "../button/iconButton";
+import { ROUTER } from "../../constants";
 
 const UserHeader = () => {
   const auth = useSelector((state: RootState) => state.auth);
@@ -12,7 +14,13 @@ const UserHeader = () => {
     return <UserHeaderLogged auth={auth} />;
   }
 
-  return <UserHeaderUnLogged />;
+  return (
+    <Link to={ROUTER.LOGIN} >
+      <IconButton>
+        <ICONS.ACCOUNT />
+      </IconButton>
+    </Link>
+  )
 };
 
 const UserHeaderLogged = (props: any) => {
@@ -42,19 +50,6 @@ const UserHeaderLogged = (props: any) => {
         </div>
       )}
     </div>
-  );
-};
-
-const UserHeaderUnLogged = () => {
-  return (
-    <Link
-      to="/login"
-      className="text-slate-600 bg-gray-200 hover:bg-gray-300 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800 h-10 w-10 flex items-center justify-center"
-    >
-      <span>
-        <ICONS.ACCOUNT />
-      </span>
-    </Link>
   );
 };
 

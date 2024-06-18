@@ -20,7 +20,7 @@ const FooterColumn = (props: IFooterColumnProps) => {
       </h2>
       <ul className="text-gray-500 dark:text-gray-400 font-medium">
         {items.map((item) => (
-          <li className="mb-4">
+          <li className="mb-4" key={item.title}>
             <Link to={item.href}>{item.title}</Link>
           </li>
         ))}

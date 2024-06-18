@@ -8,7 +8,7 @@ interface MatchHandle {
 
 interface IMatch extends UIMatch {
   handle: MatchHandle;
-  data: any; // You can replace `any` with the specific type if you know what data will be passed
+  data: any;
 }
 
 const Breadcrumb = () => {

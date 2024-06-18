@@ -1,0 +1,11 @@
+.image-gallery-content.image-gallery-thumbnails-bottom {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.image-gallery-thumbnails-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}

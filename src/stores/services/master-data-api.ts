@@ -15,8 +15,23 @@ const api = createApi({
       query: (code) => `category/get-categories-by-banner-code?code=${code}`,
       transformResponse,
     }),
+
+    getCategoryByCode: build.query<any, string>({
+      query: (code) => `category/get-category-by-code?code=${code}`,
+      transformResponse,
+    }),
+
+    getProductByCode: build.query<any, string>({
+      query: (code) => `product/get-product-by-code?code=${code}`,
+      transformResponse,
+    }),
+
   }),
 });
 
-export const { useGetCategoriesByBannerCodeQuery } = api;
+export const {
+  useGetCategoriesByBannerCodeQuery,
+  useGetCategoryByCodeQuery,
+  useGetProductByCodeQuery,
+} = api;
 export default api;

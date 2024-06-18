@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { CATEGORIES_MENU } from "../../constants";
-import CategoryItem from "./categoryItem";
+import TitleButton from "../button/titleButton";
 
 interface ICategoriesMenuProps {
   isShow: boolean;
@@ -9,7 +10,6 @@ interface ICategoriesMenuProps {
 
 const CategoriesMenu = (props: ICategoriesMenuProps) => {
   const { isShow, onMouseLeave } = props;
-
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseLeave = () => {
@@ -19,13 +19,18 @@ const CategoriesMenu = (props: ICategoriesMenuProps) => {
 
   return (
     <div
-      className={`overflow-hidden ease-in-out duration-1000 ${isShow || isHovered ? "max-h-screen" : "max-h-0"}`}
+      className={`overflow-hidden duration-1000 ${isShow || isHovered ? "max-h-screen" : "max-h-0"}`}
       onMouseLeave={handleMouseLeave}
       onMouseEnter={() => setIsHovered(true)}
     >
-      <ul className="flex justify-between items-center max-w-screen-lg mx-auto py-2 ">
+      <ul className="flex items-center gap-x-8 max-w-screen-lg mx-auto py-3">
         {CATEGORIES_MENU.map((cateConfig) => (
-          <CategoryItem {...cateConfig} key={cateConfig.title} />
+          <Link to={cateConfig.href}>
+            <TitleButton bg>
+              {cateConfig.icon}
+              {cateConfig.title}
+            </TitleButton>
+          </Link>
         ))}
       </ul>
     </div>

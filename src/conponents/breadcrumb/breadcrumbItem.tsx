@@ -1,4 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
+import TitleButton from "../button/titleButton";
 
 interface IBreadcrumbItemProps {
   path: string;
@@ -10,18 +11,17 @@ const BreadcrumbItem = (props: IBreadcrumbItemProps) => {
   const { path, icon, title } = props;
   const location = useLocation();
 
-  console.log(location);
-  console.log(path);
+  console.log("location.pathname:", location.pathname);
+  console.log("path:", path);
 
-  const lastItem = location.pathname.split("/").pop();
+  const isActived = path == location.pathname;
 
   return (
-    <Link
-      to={path}
-      className={`gap-x-2 inline-flex items-center text-sm font-medium  hover:text-blue-600 dark:text-gray-400 dark:hover:text-white ${path.includes("" + lastItem) ? "text-blue-600" : "text-gray-700"}`}
-    >
-      {icon}
-      {title}
+    <Link to={path} >
+      <TitleButton isActived={isActived}>
+        {icon}
+        {title}
+      </TitleButton>
     </Link>
   );
 };

@@ -3,7 +3,7 @@ import { ROUTER } from "../../constants";
 import { useOutsideClick } from "../../hooks";
 import CategoriesMenu from "../categories-menu";
 import ICONS from "../icons";
-import IconButton from "../icons/iconButton";
+import IconButton from "../button/iconButton";
 import Logo from "../logo";
 import Menu from "../menu";
 import Search from "../search";
@@ -32,7 +32,7 @@ const Header = () => {
             Nạp thẻ
           </Link>
 
-          <IconButton href={""}>
+          <IconButton>
             <ICONS.BELL />
           </IconButton>
 

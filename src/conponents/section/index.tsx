@@ -28,19 +28,29 @@ const Section = (props: ISectionProps) => {
     return null;
   }
 
+
   return (
     <section className="mt-16">
       <SectionTitle title={banner.name} tagTitle={banner.tag} />
       <div className="grid grid-cols-4 gap-4">
         {records.map((record: any) => (
           <CardItem
-            href={`${ROUTER.SHOP}?code=${record.code}`}
+            href={`${ROUTER.SHOP}?categoryCode=${record.code}`}
             imgId={record.mainFileCLDId}
             title={record.name}
-            listParagraph={[]}
+            listParagraph={[
+              <span className="text-sm font-medium text-gray-600">Số tài khoản: {
+                record.products.reduce(
+                  (accumulator: number, currentValue: any) => accumulator + currentValue.quantity.currentQuantity,
+                  0
+                )
+              }</span>
+            ]}
           />
-        ))}
+        ))
+        }
       </div>
+      <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"></hr>
     </section>
   );
 };

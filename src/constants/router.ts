@@ -1,13 +1,13 @@
 const ROUTER = {
   ROOT: "/",
-  LOGIN: "login",
+  LOGIN: "/login",
   SHOP: "/shop",
-  PRODUCT: "product",
+  PRODUCT: "/product",
   ORDER: "order",
   PAYMENT: "payment",
   RECEIVED: "received",
   ACCOUNT: "/account",
-  RECHARGE: "recharge",
+  NEWS: "/news",
   ALLROUTER: "*",
 
   ACCOUNT_RECHARGE: "/account/recharge",

@@ -1,4 +1,3 @@
-import React, { useRef, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -8,28 +7,38 @@ import { Pagination } from "swiper/modules";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
-
 import "./styles.css";
+import { useSelector } from "../../stores/hooks";
+import { selectMaster } from "../../stores/features/masterSlice";
+import CdlImage from "../cdl-image";
 
 const HomeCarousel = () => {
+
+  const masterData = useSelector(selectMaster);
+  if (masterData == null) {
+    return <p>Loading...</p>;
+  }
+  const { entity } = masterData;
+  const { sliders } = entity;
+
+
   return (
     <div className="relative h-full">
       <Swiper
         pagination={{
           dynamicBullets: true,
         }}
+        loop
         modules={[Pagination]}
         className="mySwiper"
       >
-        <SwiperSlide>Slide 1</SwiperSlide>
-        <SwiperSlide>Slide 2</SwiperSlide>
-        <SwiperSlide>Slide 3</SwiperSlide>
-        <SwiperSlide>Slide 4</SwiperSlide>
-        <SwiperSlide>Slide 5</SwiperSlide>
-        <SwiperSlide>Slide 6</SwiperSlide>
-        <SwiperSlide>Slide 7</SwiperSlide>
-        <SwiperSlide>Slide 8</SwiperSlide>
-        <SwiperSlide>Slide 9</SwiperSlide>
+        {
+          sliders && sliders.map((item: any) => (
+            <SwiperSlide>
+              <CdlImage w={3000} h={3000} id={item.cdlId} />
+            </SwiperSlide>
+          ))
+        }
       </Swiper>
     </div>
   );

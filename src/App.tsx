@@ -30,14 +30,47 @@ const router = createBrowserRouter(
         {
           path: ROUTER.LOGIN,
           element: <Login />,
+          handle: {
+            crumb: (props: any) => {
+              return (
+                <BreadcrumbItem
+                  path={ROUTER.LOGIN}
+                  title={"Đăng nhập"}
+                  icon={<ICONS.LOGOUT />}
+                />
+              );
+            },
+          },
         },
         {
           path: ROUTER.SHOP,
           element: <Shop />,
+          handle: {
+            crumb: (props: any) => {
+              return (
+                <BreadcrumbItem
+                  path={ROUTER.SHOP}
+                  title={"Sản phẩm"}
+                  icon={<ICONS.RECHARGE />}
+                />
+              );
+            },
+          },
         },
         {
           path: ROUTER.PRODUCT,
           element: <Product />,
+          handle: {
+            crumb: (props: any) => {
+              return (
+                <BreadcrumbItem
+                  path={ROUTER.PRODUCT}
+                  title={"Sản phẩm"}
+                  icon={<ICONS.ADDRESS_CARD />}
+                />
+              );
+            },
+          },
         },
         {
           path: ROUTER.ORDER,
@@ -75,15 +108,13 @@ const router = createBrowserRouter(
               element: <AccountInfo />,
             },
             {
-              path: ROUTER.RECHARGE,
+              path: ROUTER.ACCOUNT_RECHARGE,
               element: <AccountRecharge />,
               handle: {
                 crumb: (props: any) => {
-                  console.log("props:", props);
-
                   return (
                     <BreadcrumbItem
-                      path={ROUTER.RECHARGE}
+                      path={ROUTER.ACCOUNT_RECHARGE}
                       title={"Nạp thẻ"}
                       icon={<ICONS.RECHARGE />}
                     />

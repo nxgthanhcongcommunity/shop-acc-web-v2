@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { ROUTER } from "../../constants";
 import ICONS from "../icons";
-import { IconPadding } from "..";
+import { IconButton } from "..";
 
 interface IUserDropdownContentProps {
   unLimitHeight?: boolean;
@@ -37,33 +37,22 @@ const UserDropdownContent = (props: IUserDropdownContentProps) => {
             </div>
           </Link>
         </div>
-        {/* <div className="relative bg-white rounded-lg shadow dark:bg-gray-700 p-4 border">
-          <Link to={ROUTER.ACCOUNT}>
-            <div className="flex gap-x-4 items-center justify-between">
-              <IconPadding>
-                <ICONS.ACCOUNT_CIRCLE />
-              </IconPadding>
-              <p className="grow text-sm">Thông tin tài khoản</p>
-              <ICONS.ARROW_RIGHT />
-            </div>
-          </Link>
-        </div> */}
         <div className="relative bg-white rounded-lg shadow dark:bg-gray-700 p-4 border">
           <h2 className="font-semibold text-md mb-4">Giao dịch</h2>
           <div className="flex items-center justify-between">
             <Link to={ROUTER.ACCOUNT_RECHARGE}>
               <div className="flex justify-center flex-col items-center">
-                <IconPadding>
+                <IconButton>
                   <ICONS.RECHARGE />
-                </IconPadding>
+                </IconButton>
                 <span className="text-sm mt-1">Nạp tiền</span>
               </div>
             </Link>
             <Link to={ROUTER.ACCOUNT_RECHARGE}>
               <div className="flex justify-center flex-col items-center">
-                <IconPadding>
+                <IconButton>
                   <ICONS.RECHARGE />
-                </IconPadding>
+                </IconButton>
                 <span className="text-sm mt-1">Rút vật phẩm</span>
               </div>
             </Link>
@@ -75,18 +64,18 @@ const UserDropdownContent = (props: IUserDropdownContentProps) => {
           <div className="flex flex-col gap-y-4">
             <Link to={ROUTER.ACCOUNT}>
               <div className="flex gap-x-4 items-center justify-between">
-                <IconPadding>
+                <IconButton>
                   <ICONS.CHART />
-                </IconPadding>
+                </IconButton>
                 <p className="grow text-sm">Biến động số dư</p>
                 <ICONS.ARROW_RIGHT />
               </div>
             </Link>
             <Link to={ROUTER.ACCOUNT}>
               <div className="flex gap-x-4 items-center justify-between">
-                <IconPadding>
+                <IconButton>
                   <ICONS.ACCOUNT_CIRCLE />
-                </IconPadding>
+                </IconButton>
                 <p className="grow text-sm">Lịch sử mua hàng</p>
                 <ICONS.ARROW_RIGHT />
               </div>
@@ -95,9 +84,9 @@ const UserDropdownContent = (props: IUserDropdownContentProps) => {
         </div>
         <div className="relative bg-white rounded-lg shadow dark:bg-gray-700 p-4 border">
           <div className="flex gap-x-4 items-center justify-between">
-            <IconPadding>
+            <IconButton>
               <ICONS.LOGOUT />
-            </IconPadding>
+            </IconButton>
             <p className="grow text-sm">Đăng xuất</p>
           </div>
         </div>

@@ -1,23 +1,14 @@
 import ICONS from "../conponents/icons";
+import ROUTER from "./router";
 
 const CATEGORIES_MENU = [
   {
-    href: "/account/recharge",
+    href: ROUTER.ACCOUNT_RECHARGE,
     icon: <ICONS.RECHARGE />,
     title: "Nạp thẻ",
   },
   {
-    href: "/shop",
-    icon: <ICONS.GAME />,
-    title: "Acc reroll",
-  },
-  {
-    href: "/shop",
-    icon: <ICONS.GAME />,
-    title: "Acc trên 50k",
-  },
-  {
-    href: "/news",
+    href: ROUTER.NEWS,
     icon: <ICONS.NEWSPAPER />,
     title: "Tin tức",
   },
