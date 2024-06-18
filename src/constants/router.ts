@@ -11,6 +11,7 @@ const ROUTER = {
   ALLROUTER: "*",
 
   ACCOUNT_RECHARGE: "/account/recharge",
+  ORDER_RECEIVED: "/order/received",
 };
 
 export default ROUTER;

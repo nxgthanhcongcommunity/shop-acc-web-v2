@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import {
   Breadcrumb,
   ProductGallery,
@@ -8,13 +8,15 @@ import {
 import { useGetProductByCodeQuery } from "../stores/services/master-data-api";
 import ReviewModal from "../conponents/review-modal";
 import { useState } from "react";
+import { useSelector } from "../stores/hooks";
+import { RootState } from "../stores";
+import { ROUTER } from "../constants";
 
 interface IProductInfoItemProps {
   title: string;
   value: string | number;
 }
 export const ProductInfoItem = (props: IProductInfoItemProps) => {
-
   const { title, value } = props;
 
   return (
@@ -22,19 +24,24 @@ export const ProductInfoItem = (props: IProductInfoItemProps) => {
       <p className="grow">{title}:</p>
       <span className="text-slate-600">{value}</span>
     </div>
-  )
-}
+  );
+};
 
 const Product = () => {
+  const auth = useSelector((state: RootState) => state.auth);
+  const navigate = useNavigate();
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const location = useLocation();
+  console.log(location);
+
+  const [searchParams] = useSearchParams();
   const [isShowModal, setIsShowModal] = useState(false);
 
   const {
     isError,
     isLoading,
     data: record,
-  } = useGetProductByCodeQuery(("" + searchParams.get("productCode")));
+  } = useGetProductByCodeQuery("" + searchParams.get("productCode"));
   if (isError) {
     return null;
   }
@@ -49,6 +56,14 @@ const Product = () => {
 
   const { product, relatedProducts } = record;
 
+  const handleBuyClick = () => {
+    if (auth.isLogged === false) {
+      navigate(
+        `${ROUTER.LOGIN}?redirect-from=${location.pathname}${location.search}`
+      );
+    }
+    setIsShowModal(true);
+  };
 
   let childCdlIds = [];
 
@@ -58,10 +73,7 @@ const Product = () => {
     console.error(ex);
   }
 
-  const cdlIds = [
-    product.mainFileCLDId,
-    ...childCdlIds,
-  ]
+  const cdlIds = [product.mainFileCLDId, ...childCdlIds];
 
   return (
     <div className="grow max-w-screen-xl mx-auto w-full">
@@ -77,14 +89,18 @@ const Product = () => {
           <div className="relative bg-white rounded-lg shadow dark:bg-gray-700 p-4 border mt-8">
             <h2 className="font-semibold text-md mb-4">Thông tin tài khoản</h2>
             <div className="flex flex-col gap-y-4">
-
-              <ProductInfoItem title={"Loại tài khoản"} value={product.category.name} />
+              <ProductInfoItem
+                title={"Loại tài khoản"}
+                value={product.category.name}
+              />
               <ProductInfoItem title={"Server"} value={product.server} />
               <ProductInfoItem title={"Đăng nhập"} value={product.loginType} />
-              <ProductInfoItem title={"Hệ điều hành"} value={product.operatingSystem} />
+              <ProductInfoItem
+                title={"Hệ điều hành"}
+                value={product.operatingSystem}
+              />
               <ProductInfoItem title={"Gem/Chono"} value={product.gemChono} />
               <ProductInfoItem title={"Mô tả"} value={product.descriptions} />
-
             </div>
           </div>
 
@@ -94,7 +110,7 @@ const Product = () => {
           </div>
           <div className="mt-4">
             <button
-              onClick={() => setIsShowModal(true)}
+              onClick={handleBuyClick}
               type="button"
               className="block w-full focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
             >
@@ -105,7 +121,11 @@ const Product = () => {
       </div>
       {/* <Section /> */}
       {/* {isShowModal && <ReviewModal setIsShowModal={setIsShowModal} />} */}
-      <ReviewModal isShowModal={isShowModal} setIsShowModal={setIsShowModal} />
+      <ReviewModal
+        product={product}
+        isShowModal={isShowModal}
+        setIsShowModal={setIsShowModal}
+      />
     </div>
   );
 };

@@ -12,9 +12,14 @@ const Logo = () => {
 
   const { logoUrl, shopName } = masterData.entity;
 
+  console.log(masterData.entity);
+
   return (
-    <Link to={ROUTER.ROOT} className="flex items-center space-x-3 rtl:space-x-reverse">
-      <CdlImage id={logoUrl} w={12 * 4} h={12 * 4} />
+    <Link
+      to={ROUTER.ROOT}
+      className="flex items-center space-x-3 rtl:space-x-reverse"
+    >
+      <CdlImage w={12} h={12} id={logoUrl} />
       <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
         {shopName}
       </span>

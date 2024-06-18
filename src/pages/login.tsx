@@ -4,6 +4,7 @@ import { authApi } from "../api";
 import { JwtPayload, jwtDecode } from "jwt-decode";
 import { useDispatch } from "../stores/hooks";
 import { assignAuthInfo } from "../stores/features/authSlice";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 interface IDecoded extends JwtPayload {
   account: any;
@@ -19,6 +20,8 @@ const Login = () => {
 
 const LoginContainer = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   const handleGoogleLogin = useGoogleLogin({
     onSuccess: async (credential) => {
@@ -30,6 +33,8 @@ const LoginContainer = () => {
       const { token, refreshToken } = response.data;
       const decoded = jwtDecode<IDecoded>(token);
       dispatch(assignAuthInfo(decoded.account));
+
+      navigate(searchParams.get("redirect-from") || "/");
     },
   });
 

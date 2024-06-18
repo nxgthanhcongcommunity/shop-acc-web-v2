@@ -11,14 +11,13 @@ import { useGetCategoryByCodeQuery } from "../stores/services/master-data-api";
 import { ROUTER } from "../constants";
 
 const Shop = () => {
-
   const [searchParams, setSearchParams] = useSearchParams();
 
   const {
     isError,
     isLoading,
     data: record,
-  } = useGetCategoryByCodeQuery(("" + searchParams.get("categoryCode")));
+  } = useGetCategoryByCodeQuery("" + searchParams.get("categoryCode"));
   if (isError) {
     return null;
   }
@@ -48,9 +47,15 @@ const Shop = () => {
             imgId={product.mainFileCLDId}
             title={product.name}
             listParagraph={[
-              <p className="text-sm text-gray-600">Giá: {product.price}</p>,
-              <p className="text-sm text-gray-600">Số lượng: {product.quantity.currentQuantity}</p>,
-              <p className="text-sm text-gray-600">Gem/Chono: {product.gemChono}</p>
+              <p className="text-sm font-medium text-gray-700">
+                Giá: {product.price}
+              </p>,
+              <p className="text-sm font-medium text-gray-700">
+                Số lượng: {product.quantity.currentQuantity}
+              </p>,
+              <p className="text-sm font-medium text-gray-700">
+                Gem/Chono: {product.gemChono}
+              </p>,
             ]}
           />
         ))}

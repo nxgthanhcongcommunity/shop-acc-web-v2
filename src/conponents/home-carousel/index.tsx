@@ -13,14 +13,12 @@ import { selectMaster } from "../../stores/features/masterSlice";
 import CdlImage from "../cdl-image";
 
 const HomeCarousel = () => {
-
   const masterData = useSelector(selectMaster);
   if (masterData == null) {
     return <p>Loading...</p>;
   }
   const { entity } = masterData;
   const { sliders } = entity;
-
 
   return (
     <div className="relative h-full">
@@ -32,13 +30,12 @@ const HomeCarousel = () => {
         modules={[Pagination]}
         className="mySwiper"
       >
-        {
-          sliders && sliders.map((item: any) => (
+        {sliders &&
+          sliders.map((item: any) => (
             <SwiperSlide>
-              <CdlImage w={3000} h={3000} id={item.cdlId} />
+              <CdlImage id={item.cdlId} />
             </SwiperSlide>
-          ))
-        }
+          ))}
       </Swiper>
     </div>
   );

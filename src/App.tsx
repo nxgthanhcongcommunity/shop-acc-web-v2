@@ -85,7 +85,7 @@ const router = createBrowserRouter(
               element: <OrderPayment />,
             },
             {
-              path: ROUTER.RECEIVED,
+              path: ROUTER.ORDER_RECEIVED,
               element: <OrderReceived />,
             },
           ],

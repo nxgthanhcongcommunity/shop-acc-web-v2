@@ -1,5 +1,7 @@
+import { Outlet } from "react-router-dom";
+
 const Order = () => {
-  return <p>Order</p>;
+  return <Outlet />;
 };
 
 export default Order;

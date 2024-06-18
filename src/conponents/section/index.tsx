@@ -28,7 +28,6 @@ const Section = (props: ISectionProps) => {
     return null;
   }
 
-
   return (
     <section className="mt-16">
       <SectionTitle title={banner.name} tagTitle={banner.tag} />
@@ -39,16 +38,17 @@ const Section = (props: ISectionProps) => {
             imgId={record.mainFileCLDId}
             title={record.name}
             listParagraph={[
-              <span className="text-sm font-medium text-gray-600">Số tài khoản: {
-                record.products.reduce(
-                  (accumulator: number, currentValue: any) => accumulator + currentValue.quantity.currentQuantity,
+              <span className="text-sm text-gray-600">
+                Số tài khoản:{" "}
+                {record.products.reduce(
+                  (accumulator: number, currentValue: any) =>
+                    accumulator + currentValue.quantity.currentQuantity,
                   0
-                )
-              }</span>
+                )}
+              </span>,
             ]}
           />
-        ))
-        }
+        ))}
       </div>
       <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"></hr>
     </section>

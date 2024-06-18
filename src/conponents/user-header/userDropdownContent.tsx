@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { ROUTER } from "../../constants";
 import ICONS from "../icons";
 import { IconButton } from "..";
+import { useDispatch } from "../../stores/hooks";
+import { removeAuthInfo } from "../../stores/features/authSlice";
 
 interface IUserDropdownContentProps {
   unLimitHeight?: boolean;
@@ -9,6 +11,11 @@ interface IUserDropdownContentProps {
 
 const UserDropdownContent = (props: IUserDropdownContentProps) => {
   const { unLimitHeight } = props;
+
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(removeAuthInfo());
+  };
 
   return (
     <div
@@ -83,7 +90,10 @@ const UserDropdownContent = (props: IUserDropdownContentProps) => {
           </div>
         </div>
         <div className="relative bg-white rounded-lg shadow dark:bg-gray-700 p-4 border">
-          <div className="flex gap-x-4 items-center justify-between">
+          <div
+            className="flex gap-x-4 items-center justify-between cursor-pointer"
+            onClick={handleLogout}
+          >
             <IconButton>
               <ICONS.LOGOUT />
             </IconButton>
