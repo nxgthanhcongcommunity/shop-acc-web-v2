@@ -32,6 +32,8 @@ const LoginContainer = () => {
 
       const { token, refreshToken } = response.data;
       const decoded = jwtDecode<IDecoded>(token);
+      localStorage.setItem('authToken', token);
+      localStorage.setItem('refreshToken', refreshToken);
       dispatch(assignAuthInfo(decoded.account));
 
       navigate(searchParams.get("redirect-from") || "/");

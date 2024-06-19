@@ -14,14 +14,22 @@ const ProductGallery = (props: IProductGalleryProps) => {
     original: item,
     thumbnail: item,
     renderThumbInner: (item: any) => {
-      return (
-        <CdlImage w={3000} h={3000} id={item.original} />
-      )
+      try {
+        return (
+          <CdlImage w={3000} h={3000} id={item.original} />
+        )
+      } catch (ex) {
+        return <>ex</>
+      }
     },
     renderItem: (item: any) => {
-      return (
-        <CdlImage w={3000} h={3000} id={item.original} />
-      )
+      try {
+        return (
+          <CdlImage w={3000} h={3000} id={item.original} />
+        )
+      } catch (ex) {
+        return <>ex</>
+      }
     }
   }))
 

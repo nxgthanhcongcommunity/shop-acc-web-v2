@@ -2,10 +2,9 @@ import { Link } from "react-router-dom";
 import { ROUTER } from "../../constants";
 import { useOutsideClick } from "../../hooks";
 import CategoriesMenu from "../categories-menu";
-import ICONS from "../icons";
-import IconButton from "../button/iconButton";
 import Logo from "../logo";
 import Menu from "../menu";
+import Notification from "../notification";
 import Search from "../search";
 import UserHeader from "../user-header";
 
@@ -32,9 +31,7 @@ const Header = () => {
             Nạp thẻ
           </Link>
 
-          <IconButton>
-            <ICONS.BELL />
-          </IconButton>
+          <Notification />
 
           <UserHeader />
         </div>

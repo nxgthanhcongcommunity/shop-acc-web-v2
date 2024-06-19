@@ -5,3 +5,4 @@ export { default as CATEGORIES_MENU } from "./categoriesMenu";
 export { default as FOOTER_COLUMNS } from "./footerColumns";
 export { default as HTTP_METHODS } from "./httpMethods";
 export { default as SOCIAL_ITEMS } from "./socialItems";
+export { default as TOASTMSG_TYPES } from "./toastMsgTypes";

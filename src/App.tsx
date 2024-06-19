@@ -2,6 +2,7 @@ import { Link, RouterProvider, createBrowserRouter } from "react-router-dom";
 import { BreadcrumbItem, ICONS, Layout } from "./conponents";
 import {
   Account,
+  AccountBalance,
   AccountInfo,
   AccountReceived,
   AccountRecharge,
@@ -16,6 +17,7 @@ import {
   Shop,
 } from "./pages";
 import { ROUTER } from "./constants";
+import PrivateElement from "./conponents/layout/privateElement";
 
 const router = createBrowserRouter(
   [
@@ -86,7 +88,18 @@ const router = createBrowserRouter(
             },
             {
               path: ROUTER.ORDER_RECEIVED,
-              element: <OrderReceived />,
+              element: <PrivateElement><OrderReceived /></PrivateElement>,
+              handle: {
+                crumb: (props: any) => {
+                  return (
+                    <BreadcrumbItem
+                      path={ROUTER.ORDER_RECEIVED}
+                      title={"Thông tin đơn hàng"}
+                      icon={<ICONS.RECEIPT />}
+                    />
+                  );
+                },
+              },
             },
           ],
         },
@@ -96,7 +109,7 @@ const router = createBrowserRouter(
           handle: {
             crumb: () => (
               <BreadcrumbItem
-                path={`/${ROUTER.ACCOUNT}`}
+                path={ROUTER.ACCOUNT}
                 title={"Tài khoản"}
                 icon={<ICONS.ACCOUNT className="w-3 h-3" />}
               />
@@ -105,11 +118,11 @@ const router = createBrowserRouter(
           children: [
             {
               index: true,
-              element: <AccountInfo />,
+              element: <PrivateElement><AccountInfo /></PrivateElement>,
             },
             {
               path: ROUTER.ACCOUNT_RECHARGE,
-              element: <AccountRecharge />,
+              element: <PrivateElement><AccountRecharge /></PrivateElement>,
               handle: {
                 crumb: (props: any) => {
                   return (
@@ -123,8 +136,34 @@ const router = createBrowserRouter(
               },
             },
             {
-              path: ROUTER.RECEIVED,
-              element: <AccountReceived />,
+              path: ROUTER.ACCOUNT_RECEIVED,
+              element: <PrivateElement><AccountReceived /></PrivateElement>,
+              handle: {
+                crumb: (props: any) => {
+                  return (
+                    <BreadcrumbItem
+                      path={ROUTER.ACCOUNT_RECEIVED}
+                      title={"Thông tin nạp thẻ"}
+                      icon={<ICONS.RECHARGE />}
+                    />
+                  );
+                },
+              },
+            },
+            {
+              path: ROUTER.ACCOUNT_BALANCE,
+              element: <PrivateElement><AccountBalance /></PrivateElement>,
+              handle: {
+                crumb: (props: any) => {
+                  return (
+                    <BreadcrumbItem
+                      path={ROUTER.ACCOUNT_BALANCE}
+                      title={"Biến động số dư"}
+                      icon={<ICONS.RECHARGE />}
+                    />
+                  );
+                },
+              },
             },
           ],
         },

@@ -1,5 +1,5 @@
 const Info = () => (
-  <div className="grow max-w-screen-xl mx-auto w-full p-4 md:p-5">
+  <div className="grow max-w-screen-xl mx-auto w-full">
     <div className="relative bg-white rounded-lg shadow dark:bg-gray-700 p-4 border">
       <div className="flex gap-x-4">
         <a

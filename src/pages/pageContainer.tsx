@@ -9,7 +9,7 @@ const PageContainer = (props: IPageContainerProps) => {
   const { children } = props;
 
   return (
-    <div className="grow max-w-screen-xl mx-auto w-full">
+    <div className="grow max-w-screen-xl mx-auto w-full flex flex-col">
       <Breadcrumb />
       {children}
     </div>

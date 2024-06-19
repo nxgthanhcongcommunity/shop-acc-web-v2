@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ROUTER } from "../../constants";
 import ICONS from "../icons";
 import { IconButton } from "..";
@@ -13,8 +13,13 @@ const UserDropdownContent = (props: IUserDropdownContentProps) => {
   const { unLimitHeight } = props;
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const handleLogout = () => {
     dispatch(removeAuthInfo());
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('refreshToken');
+    navigate(ROUTER.ROOT);
   };
 
   return (

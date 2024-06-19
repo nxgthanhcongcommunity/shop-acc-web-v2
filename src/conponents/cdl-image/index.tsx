@@ -15,6 +15,8 @@ interface ICdlImageProps {
 }
 
 const CdlImage = (props: ICdlImageProps) => {
+
+
   let { w = 255, h = 255, id } = props;
 
   if (id == null) {
@@ -23,15 +25,9 @@ const CdlImage = (props: ICdlImageProps) => {
   const myImage = cld.image(id);
 
   // Resize to 250 x 250 pixels using the 'fill' crop mode.
-  myImage.resize(fill().width(w).height(h));
+  const url = myImage.resize(fill().width(w).height(h)).toURL();
 
-  return <AdvancedImage cldImg={myImage} />;
-
-  // return (
-  //   <div className="w-8 h-8">
-  //     <AdvancedImage cldImg={myImage} />
-  //   </div>
-  // );
+  return <img src={url} alt="image" className="" />;
 };
 
 // const CdlImage = (props: ICdlImageProps) => {

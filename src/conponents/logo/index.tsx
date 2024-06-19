@@ -12,8 +12,6 @@ const Logo = () => {
 
   const { logoUrl, shopName } = masterData.entity;
 
-  console.log(masterData.entity);
-
   return (
     <Link
       to={ROUTER.ROOT}

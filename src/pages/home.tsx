@@ -5,11 +5,6 @@ import { getByKey, selectMaster } from "../stores/features/masterSlice";
 import React from "react";
 
 const Home = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getByKey("home-page"));
-  }, []);
-
   const masterData = useSelector(selectMaster);
 
   const [banners, setBanners] = useState([]);

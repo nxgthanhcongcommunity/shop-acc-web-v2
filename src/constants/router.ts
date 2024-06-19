@@ -11,6 +11,8 @@ const ROUTER = {
   ALLROUTER: "*",
 
   ACCOUNT_RECHARGE: "/account/recharge",
+  ACCOUNT_RECEIVED: "/account/received",
+  ACCOUNT_BALANCE: "/account/balance",
   ORDER_RECEIVED: "/order/received",
 };
 

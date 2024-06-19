@@ -2,18 +2,37 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import SelectField from "../../conponents/select-field";
 import { PAYMENT_METHODS, PAYMENT_PROVIDERS } from "../../constants";
 import { InputField } from "../../conponents";
+import { vnpayTransactionApi } from "../../api";
+import { useSelector } from "../../stores/hooks";
+import { RootState } from "../../stores";
 
 const Recharge = () => {
+  const auth = useSelector((state: RootState) => state.auth);
+
+  const providerHandler = {
+    [PAYMENT_PROVIDERS.VNPAY]: async (props: any) => {
+      const { accountCode, bankCode, amount } = props;
+      const { succeed, data } = await vnpayTransactionApi.CreatePaymentUrl({
+        amount,
+        accountCode,
+        bankCode: bankCode,
+      });
+
+      if (!succeed) return;
+      window.location.href = data.paymentUrl;
+    },
+  };
+
   const handlePayment = async (props: any) => {
-    // const { provider, bankCode, amount } = props;
-    // if (!auth.entity) {
-    //   return;
-    // }
-    // await providerHandler[provider]({
-    //   accountCode: auth.entity.code,
-    //   bankCode,
-    //   amount,
-    // })
+    const { provider, bankCode, amount } = props;
+    if (!auth.entity) {
+      return;
+    }
+    await providerHandler[provider]({
+      accountCode: auth.entity.code,
+      bankCode,
+      amount,
+    })
   };
 
   const {

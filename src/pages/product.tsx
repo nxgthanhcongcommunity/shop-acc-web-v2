@@ -21,7 +21,7 @@ export const ProductInfoItem = (props: IProductInfoItemProps) => {
 
   return (
     <div className="flex gap-x-4 items-center justify-between pl-3">
-      <p className="grow">{title}:</p>
+      <p className="grow font-medium">{title}:</p>
       <span className="text-slate-600">{value}</span>
     </div>
   );
@@ -32,7 +32,6 @@ const Product = () => {
   const navigate = useNavigate();
 
   const location = useLocation();
-  console.log(location);
 
   const [searchParams] = useSearchParams();
   const [isShowModal, setIsShowModal] = useState(false);

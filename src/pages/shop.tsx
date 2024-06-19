@@ -1,14 +1,12 @@
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import {
   Breadcrumb,
-  SectionTitle,
-  ShopHeader,
   CardItem,
-  Section,
+  SectionTitle,
+  ShopHeader
 } from "../conponents";
-import { useEffect, useState } from "react";
-import { useGetCategoryByCodeQuery } from "../stores/services/master-data-api";
 import { ROUTER } from "../constants";
+import { useGetCategoryByCodeQuery } from "../stores/services/master-data-api";
 
 const Shop = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -40,25 +38,29 @@ const Shop = () => {
         <ShopHeader total={record.products.length} />
       </div>
       <div className="grid grid-cols-4 gap-4">
-        {record.products.map((product: any) => (
-          <CardItem
-            key={product.code}
-            href={`${ROUTER.PRODUCT}?productCode=${product.code}`}
-            imgId={product.mainFileCLDId}
-            title={product.name}
-            listParagraph={[
-              <p className="text-sm font-medium text-gray-700">
-                Giá: {product.price}
-              </p>,
-              <p className="text-sm font-medium text-gray-700">
-                Số lượng: {product.quantity.currentQuantity}
-              </p>,
-              <p className="text-sm font-medium text-gray-700">
-                Gem/Chono: {product.gemChono}
-              </p>,
-            ]}
-          />
-        ))}
+        {record.products.map((product: any) => {
+
+          return (
+            <CardItem
+              isActived={product.quantity.currentQuantity > 0}
+              key={product.code}
+              href={`${ROUTER.PRODUCT}?productCode=${product.code}`}
+              imgId={product.mainFileCLDId}
+              title={product.name}
+              listParagraph={[
+                <p className="text-sm font-medium text-gray-700">
+                  Giá: {product.price}
+                </p>,
+                <p className="text-sm font-medium text-gray-700">
+                  Số lượng: {product.quantity.currentQuantity}
+                </p>,
+                <p className="text-sm font-medium text-gray-700">
+                  Gem/Chono: {product.gemChono}
+                </p>,
+              ]}
+            />
+          )
+        })}
       </div>
       {/* <Section banner={undefined} /> */}
       <div className="h-12"></div>
