@@ -1,14 +1,13 @@
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
+import { ROUTER } from "../../constants";
 import { RootState } from "../../stores";
 import { useSelector } from "../../stores/hooks";
-import { ROUTER } from "../../constants";
 
 const PrivateElement = (props: any) => {
 
     const { children } = props;
 
     const auth = useSelector((state: RootState) => state.auth);
-    const navigate = useNavigate();
     const location = useLocation();
 
     console.log(auth.isLogged == null || auth.isLogged == false)

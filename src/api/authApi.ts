@@ -1,16 +1,25 @@
+import { HTTP_METHODS } from "../constants";
 import axiosInstance from "./axiosInstance";
-import { transformResponse } from "./utils";
+import { fetchApiAsync } from "./utils";
 
 const authApi = {
-  async LoginWithGoogle(data: any) {
-    const response = await axiosInstance({
-      method: "POST",
-      url: "auth/google",
-      data: { ...data },
-    });
 
-    return transformResponse(response);
-  },
+  LoginWithGoogle: async (data: any) => await fetchApiAsync(
+    async () => await axiosInstance({
+      method: HTTP_METHODS.POST,
+      url: "auth/google",
+      data,
+    })
+  ),
+
+  RefreshToken: async (data: any) => await fetchApiAsync(
+    async () => await axiosInstance({
+      method: HTTP_METHODS.POST,
+      url: "auth/refresh",
+      data,
+    })
+  )
+
 };
 
 export default authApi;

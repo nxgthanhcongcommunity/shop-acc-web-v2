@@ -6,7 +6,7 @@ interface ITitleButtonProps {
     children: ReactNode;
 }
 
-const TitleButton = (props: any) => {
+const TitleButton = (props: ITitleButtonProps) => {
     const { isActived, bg, children } = props;
 
     return (

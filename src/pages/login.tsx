@@ -28,12 +28,18 @@ const LoginContainer = () => {
       console.log(credential);
 
       const response = await authApi.LoginWithGoogle(credential);
+
+      console.log("response:", response)
+
       if (!response.succeed) return;
 
       const { token, refreshToken } = response.data;
+
+      localStorage.setItem("authToken", token);
+      localStorage.setItem("refreshToken", refreshToken);
+
       const decoded = jwtDecode<IDecoded>(token);
-      localStorage.setItem('authToken', token);
-      localStorage.setItem('refreshToken', refreshToken);
+
       dispatch(assignAuthInfo(decoded.account));
 
       navigate(searchParams.get("redirect-from") || "/");

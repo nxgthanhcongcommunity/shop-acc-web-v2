@@ -14,3 +14,4 @@ export { default as AccountInfo } from "./account/info";
 export { default as AccountReceived } from "./account/received";
 export { default as AccountRecharge } from "./account/recharge";
 export { default as AccountBalance } from "./account/balance";
+export { default as AccountInvoice } from "./account/invoice";

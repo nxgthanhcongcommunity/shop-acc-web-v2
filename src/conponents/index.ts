@@ -12,6 +12,5 @@ export { default as UserDropdownContent } from "./user-header/userDropdownConten
 export { default as ICONS } from "./icons";
 export { default as SelectField } from "./select-field";
 export { default as InputField } from "./input-field";
-export { default as IconPadding } from "./icons/iconPadding";
 export { default as IconButton } from "./button/iconButton";
 export { default as CdlImage } from "./cdl-image";

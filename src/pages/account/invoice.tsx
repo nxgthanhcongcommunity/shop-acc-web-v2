@@ -1,28 +1,22 @@
-const Balance = () => {
+const Invoice = () => {
     return (
         <div className="relative bg-white rounded-lg shadow dark:bg-gray-700 p-4 border">
-            <h2 className="font-semibold text-md mb-4">Lịch sử giao dịch</h2>
+            <h2 className="font-semibold text-md mb-4">Giao dịch</h2>
             <div className="relative overflow-x-auto">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             <th scope="col" className="px-6 py-3">
-                                Mã giao dịch
+                                Product name
                             </th>
                             <th scope="col" className="px-6 py-3">
-                                Nhà cung cấp
+                                Color
                             </th>
                             <th scope="col" className="px-6 py-3">
-                                Số tiền
+                                Category
                             </th>
                             <th scope="col" className="px-6 py-3">
-                                Thành công/ Thất bại
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                Nội dung chuyển khoản
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                Ngày giao dịch
+                                Price
                             </th>
                         </tr>
                     </thead>
@@ -69,4 +63,4 @@ const Balance = () => {
     )
 };
 
-export default Balance;
+export default Invoice;

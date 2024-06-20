@@ -13,6 +13,7 @@ const ROUTER = {
   ACCOUNT_RECHARGE: "/account/recharge",
   ACCOUNT_RECEIVED: "/account/received",
   ACCOUNT_BALANCE: "/account/balance",
+  ACCOUNT_INVOICE: "/account/invoice",
   ORDER_RECEIVED: "/order/received",
 };
 

@@ -1,19 +1,104 @@
+import { useEffect, useState } from "react";
 import { useOutsideClick } from "../../hooks";
+import { useToast } from "../../providers/toastProvider";
+import { RootState } from "../../stores";
+import { useSelector } from "../../stores/hooks";
 import IconButton from "../button/iconButton";
 import ICONS from "../icons";
+import { accountApi } from "../../api";
+import { useWebSocket } from "../../providers/webSocketProvider";
+import { TOASTMSG_TYPES } from "../../constants";
 
 const Notification = () => {
+    const auth = useSelector((state: RootState) => state.auth);
 
     const [isShow, dropDownRef, handleClick, handleMouseLeave] =
         useOutsideClick<HTMLDivElement>();
 
+    const { addToastMessage } = useToast();
+
+    const [isHasNewNoti, setIsHasNewNoti] = useState(false);
+    const [notifications, setNotifications] = useState<any>([]);
+    const [toggle, setToggle] = useState(false);
+
+    useEffect(() => {
+        if (auth.entity == null) return;
+
+        (async () => {
+            const response = await accountApi.GetNotifications({
+                accountCode: auth.entity?.code,
+            });
+
+            console.log(response);
+
+            if (response.succeed == false) {
+                return;
+            }
+
+            setNotifications(response.data.notifications);
+        })();
+    }, [toggle, auth.entity]);
+
+    const ws = useWebSocket();
+
+    const handleMessage = (event: MessageEvent) => {
+        const message = JSON.parse(event.data);
+
+        if (message.type === "BALANCE" && message.accountId === auth.entity?.id) {
+            setNotifications((prevNotifications: any) => [
+                message,
+                ...prevNotifications,
+            ]);
+            setIsHasNewNoti(true);
+
+            addToastMessage({
+                id: ("" + Date.now()),
+                type: TOASTMSG_TYPES.SUCCESS,
+                title: message.title,
+                content: message.content,
+            });
+        }
+
+    };
+
+    useEffect(() => {
+        if (!ws) return;
+
+        ws.addEventListener('message', handleMessage);
+
+        return () => {
+            ws.removeEventListener('message', handleMessage);
+        };
+    }, [ws]);
+
+    useEffect(() => {
+        isShow && setIsHasNewNoti(false);
+    }, [isShow])
+
+    const handleMarkNotificationsRead = async (item?: any) => {
+
+        const { succeed, data } = await accountApi.MarkNotificationsRead({
+            code: item.code,
+        });
+        setToggle((prev) => !prev);
+
+    };
+
+    if (auth.entity == null) {
+        return <></>
+    }
     return (
         <div className="relative" ref={dropDownRef}>
-            <span onClick={handleClick}>
-                <IconButton >
-                    <ICONS.BELL />
-                </IconButton>
-            </span>
+            <div>
+                <span onClick={handleClick}>
+                    <IconButton>
+                        <span className="relative">
+                            <div className={`w-2 h-2 absolute -right-1 -top-1 bg-green-900 rounded-full ${isHasNewNoti ? "block" : "hidden"}`}></div>
+                            <ICONS.BELL />
+                        </span>
+                    </IconButton>
+                </span>
+            </div>
             {
                 isShow && <div className="absolute z-20 top-[calc(100%+10px)] right-0 w-96">
                     <div
@@ -23,7 +108,7 @@ const Notification = () => {
                     >
                         <div className="flex items-center mb-3">
                             <span className="mb-1 text-sm font-semibold text-gray-900 dark:text-white">
-                                New notification
+                                Thông báo mới
                             </span>
                             <button
                                 type="button"
@@ -32,59 +117,40 @@ const Notification = () => {
                                 aria-label="Close"
                             >
                                 <span className="sr-only">Close</span>
-                                <svg
-                                    className="w-3 h-3"
-                                    aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 14 14"
-                                >
-                                    <path
-                                        stroke="currentColor"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-                                    />
-                                </svg>
+                                <ICONS.CLOSE />
                             </button>
                         </div>
-                        <div className="flex items-center">
-                            <div className="relative inline-block shrink-0">
-                                <img
-                                    className="w-12 h-12 rounded-full"
-                                    src="/docs/images/people/profile-picture-3.jpg"
-                                    alt="Jese Leos image"
-                                />
-                                <span className="absolute bottom-0 right-0 inline-flex items-center justify-center w-6 h-6 bg-blue-600 rounded-full">
-                                    <svg
-                                        className="w-3 h-3 text-white"
-                                        aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 20 18"
-                                        fill="currentColor"
+                        <div className="flex flex-col gap-y-1 flex max-h-[400px] overflow-y-scroll">
+                            {
+                                notifications.map((item: any) => (
+                                    <div
+                                        className={`flex items-center p-2 rounded-lg ${item.isViewed ? "bg-white" : "bg-slate-300"}`}
+                                        onClick={() => handleMarkNotificationsRead(item)}
                                     >
-                                        <path
-                                            d="M18 4H16V9C16 10.0609 15.5786 11.0783 14.8284 11.8284C14.0783 12.5786 13.0609 13 12 13H9L6.846 14.615C7.17993 14.8628 7.58418 14.9977 8 15H11.667L15.4 17.8C15.5731 17.9298 15.7836 18 16 18C16.2652 18 16.5196 17.8946 16.7071 17.7071C16.8946 17.5196 17 17.2652 17 17V15H18C18.5304 15 19.0391 14.7893 19.4142 14.4142C19.7893 14.0391 20 13.5304 20 13V6C20 5.46957 19.7893 4.96086 19.4142 4.58579C19.0391 4.21071 18.5304 4 18 4Z"
-                                            fill="currentColor"
-                                        />
-                                        <path
-                                            d="M12 0H2C1.46957 0 0.960859 0.210714 0.585786 0.585786C0.210714 0.960859 0 1.46957 0 2V9C0 9.53043 0.210714 10.0391 0.585786 10.4142C0.960859 10.7893 1.46957 11 2 11H3V13C3 13.1857 3.05171 13.3678 3.14935 13.5257C3.24698 13.6837 3.38668 13.8114 3.55279 13.8944C3.71889 13.9775 3.90484 14.0126 4.08981 13.996C4.27477 13.9793 4.45143 13.9114 4.6 13.8L8.333 11H12C12.5304 11 13.0391 10.7893 13.4142 10.4142C13.7893 10.0391 14 9.53043 14 9V2C14 1.46957 13.7893 0.960859 13.4142 0.585786C13.0391 0.210714 12.5304 0 12 0Z"
-                                            fill="currentColor"
-                                        />
-                                    </svg>
-                                    <span className="sr-only">Message icon</span>
-                                </span>
-                            </div>
-                            <div className="ms-3 text-sm font-normal">
-                                <div className="text-sm font-semibold text-gray-900 dark:text-white">
-                                    Bonnie Green
-                                </div>
-                                <div className="text-sm font-normal">commented on your photo</div>
-                                <span className="text-xs font-medium text-blue-600 dark:text-blue-500">
-                                    a few seconds ago
-                                </span>
-                            </div>
+                                        <div className="relative inline-block shrink-0">
+                                            <img
+                                                className="w-12 h-12 rounded-full"
+                                                src="https://png.pngtree.com/png-clipart/20190629/original/pngtree-vector-administration-icon-png-image_4090499.jpg"
+                                                alt="Jese Leos image"
+                                            />
+                                            <span className="absolute bottom-0 right-0 inline-flex items-center justify-center w-6 h-6 bg-blue-600 rounded-full">
+                                                <ICONS.MESSAGE />
+                                                <span className="sr-only">Message icon</span>
+                                            </span>
+                                        </div>
+                                        <div className="ms-3 text-sm font-normal">
+                                            <div className="text-sm font-semibold text-gray-900 dark:text-white">
+                                                {item.title}
+                                            </div>
+                                            <div className="text-sm font-normal">{item.content}</div>
+                                            <span className="text-xs font-medium text-blue-600 dark:text-blue-500">
+                                                {item.createdAt}
+                                            </span>
+                                        </div>
+                                    </div>
+                                ))
+                            }
+
                         </div>
                     </div>
 

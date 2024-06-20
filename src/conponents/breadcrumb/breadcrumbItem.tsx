@@ -10,10 +10,6 @@ interface IBreadcrumbItemProps {
 const BreadcrumbItem = (props: IBreadcrumbItemProps) => {
   const { path, icon, title } = props;
   const location = useLocation();
-
-  console.log("location.pathname:", location.pathname);
-  console.log("path:", path);
-
   const isActived = path == location.pathname;
 
   return (

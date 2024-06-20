@@ -25,7 +25,7 @@ const Received = () => {
         await vnpayTransactionApi.GetReturnResult(paramsObj);
 
       if (!succeed) return;
-      setIsSucceed(data.code == "00");
+      setIsSucceed(data.code === "00");
       setParams(data.vnp_Params);
     })();
   }, []);
@@ -46,25 +46,25 @@ const Received = () => {
     <div className="block p-6 bg-white border border-gray-200 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700 ">
       <h2 className="mb-6 text-xl font-medium text-hightLight">
         Bạn đã nạp thành công:{" "}
-        <span className="text-3like">params.vnp_Amount vnđ</span>
+        <span className="text-blue-700">{params.vnp_Amount} vnđ</span>
       </h2>
       <div className="flex items-stretch gap-x-10 bg-gray-100 p-8 rounded-lg">
         <div className="text-sm font-medium">
           <p className="uppercase text-hightLight">Mã giao dịch: </p>
           <div className="h-3"></div>
-          <p>params.vnp_TxnRef</p>
+          <p>{params.vnp_TxnRef}</p>
         </div>
         <div className="boder-white w-[1px] border border-l border-dashed"></div>
         <div className="text-sm font-medium">
           <p className="uppercase text-hightLight">Ngày giao dịch: </p>
           <div className="h-3"></div>
-          <p>params.vnp_PayDate</p>
+          <p>{params.vnp_PayDate}</p>
         </div>
         <div className="boder-white w-[1px] border border-l border-dashed"></div>
         <div className="text-sm font-medium">
           <p className="uppercase text-hightLight">Ngân hàng: </p>
           <div className="h-3"></div>
-          <p>params.vnp_BankCode</p>
+          <p>{params.vnp_BankCode}</p>
         </div>
       </div>
 

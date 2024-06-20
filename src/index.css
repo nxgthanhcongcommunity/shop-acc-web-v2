@@ -2,6 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ==================== SCROLL BAR ================= */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #a4a9ac;
+  /* border: 3px solid #011424; */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #e9ecee;
+  border-radius: 10px;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",

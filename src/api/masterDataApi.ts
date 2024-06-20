@@ -1,19 +1,18 @@
 
-import axiosInstance from "./axiosInstance"
-import { transformResponse } from "./utils";
+import { HTTP_METHODS } from "../constants";
+import axiosInstance from "./axiosInstance";
+import { fetchApiAsync } from "./utils";
 
 const masterDataApi = {
 
-    async GetByKey(queryConfig: any) {
-
-        const response = await axiosInstance({
-            method: "GET",
+    GetByKey: async (queryConfig: any) => await fetchApiAsync(
+        async () => await axiosInstance({
+            method: HTTP_METHODS.GET,
             url: "master-data/get-by-key",
             params: queryConfig,
         })
+    )
 
-        return transformResponse(response);
-    },
 }
 
 export default masterDataApi;

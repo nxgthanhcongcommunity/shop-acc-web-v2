@@ -4,6 +4,7 @@ import {
   Account,
   AccountBalance,
   AccountInfo,
+  AccountInvoice,
   AccountReceived,
   AccountRecharge,
   Home,
@@ -165,6 +166,22 @@ const router = createBrowserRouter(
                 },
               },
             },
+            {
+              path: ROUTER.ACCOUNT_INVOICE,
+              element: <PrivateElement><AccountInvoice /></PrivateElement>,
+              handle: {
+                crumb: (props: any) => {
+                  return (
+                    <BreadcrumbItem
+                      path={ROUTER.ACCOUNT_INVOICE}
+                      title={"Lịch sử mua hàng"}
+                      icon={<ICONS.RECHARGE />}
+                    />
+                  );
+                },
+              },
+            },
+
           ],
         },
         {

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { CATEGORIES_MENU } from "../../constants";
 import TitleButton from "../button/titleButton";
 
@@ -12,6 +12,7 @@ const CategoriesMenu = (props: ICategoriesMenuProps) => {
   const { isShow, onMouseLeave } = props;
   const [isHovered, setIsHovered] = useState(false);
 
+  const location = useLocation();
   const handleMouseLeave = () => {
     onMouseLeave();
     setIsHovered(false);
@@ -26,7 +27,7 @@ const CategoriesMenu = (props: ICategoriesMenuProps) => {
       <ul className="flex items-center gap-x-8 max-w-screen-lg mx-auto py-3">
         {CATEGORIES_MENU.map((cateConfig) => (
           <Link to={cateConfig.href}>
-            <TitleButton bg>
+            <TitleButton bg isActived={cateConfig.href == location.pathname}>
               {cateConfig.icon}
               {cateConfig.title}
             </TitleButton>

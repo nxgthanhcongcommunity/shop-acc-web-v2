@@ -1,46 +1,25 @@
+import { HTTP_METHODS } from "../constants";
 import axiosInstance from "./axiosInstance";
-import { transformResponse } from "./utils";
+import { fetchApiAsync } from "./utils";
 
 const accountApi = {
-  async LoginWithGoogle(data: any) {
-    const response = await axiosInstance({
-      method: "POST",
-      url: "auth/google",
-      data: { ...data },
-    });
 
-    return response;
-  },
-
-  async GetAccountBalanceByCode(data: any) {
-    const response = await axiosInstance({
-      method: "GET",
-      url: "account/get-account-balance-by-code",
-      params: data,
-    });
-
-    return transformResponse(response);
-  },
-
-  async MarkNotificationsRead(data: any) {
-    const response = await axiosInstance({
-      method: "GET",
+  MarkNotificationsRead: async (data: any) => await fetchApiAsync(
+    async () => await axiosInstance({
+      method: HTTP_METHODS.POST,
       url: "account/mark-notifications-read",
-      params: data,
-    });
+      data,
+    })
+  ),
 
-    return transformResponse(response);
-  },
-
-  async GetNotifications(data: any) {
-    const response = await axiosInstance({
-      method: "GET",
+  GetNotifications: async (data: any) => await fetchApiAsync(
+    async () => await axiosInstance({
+      method: HTTP_METHODS.GET,
       url: "account/get-notifications",
       params: data,
-    });
+    })
+  ),
 
-    return transformResponse(response);
-  },
 };
 
 export default accountApi;

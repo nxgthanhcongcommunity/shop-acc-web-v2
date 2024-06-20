@@ -74,16 +74,16 @@ const UserDropdownContent = (props: IUserDropdownContentProps) => {
           <h2 className="font-semibold text-md mb-4">Lịch sử</h2>
 
           <div className="flex flex-col gap-y-4">
-            <Link to={ROUTER.ACCOUNT}>
+            <Link to={ROUTER.ACCOUNT_BALANCE}>
               <div className="flex gap-x-4 items-center justify-between">
                 <IconButton>
                   <ICONS.CHART />
                 </IconButton>
-                <p className="grow text-sm">Biến động số dư</p>
+                <p className="grow text-sm">Lịch sử giao dịch</p>
                 <ICONS.ARROW_RIGHT />
               </div>
             </Link>
-            <Link to={ROUTER.ACCOUNT}>
+            <Link to={ROUTER.ACCOUNT_INVOICE}>
               <div className="flex gap-x-4 items-center justify-between">
                 <IconButton>
                   <ICONS.ACCOUNT_CIRCLE />

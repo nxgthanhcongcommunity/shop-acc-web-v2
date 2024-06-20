@@ -1,26 +1,24 @@
+import { HTTP_METHODS } from "../constants";
 import axiosInstance from "./axiosInstance";
-import { transformResponse } from "./utils";
+import { fetchApiAsync } from "./utils";
 
 const invoiceApi = {
-  async CreateInvoice(data: any) {
-    const response = await axiosInstance({
-      method: "POST",
+
+  CreateInvoice: async (data: any) => await fetchApiAsync(
+    async () => await axiosInstance({
+      method: HTTP_METHODS.POST,
       url: "invoice/create",
       data: data,
-    });
+    })
+  ),
 
-    return transformResponse(response);
-  },
-
-  async GetInvoiceByCode(data: any) {
-    const response = await axiosInstance({
-      method: "GET",
+  GetInvoiceByCode: async (data: any) => await fetchApiAsync(
+    async () => await axiosInstance({
+      method: HTTP_METHODS.GET,
       url: "invoice/get-invoice-by-code",
       params: data,
-    });
-
-    return transformResponse(response);
-  },
+    })
+  )
 
 };
 
