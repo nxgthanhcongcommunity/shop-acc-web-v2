@@ -1,5 +1,6 @@
 import axios from "axios";
 import authApi from "./authApi";
+import { LOCALSTORAGE_KEYS } from "../constants";
 const { REACT_APP_API_URL, REACT_APP_API_VER } = process.env;
 
 const instance = axios.create({
@@ -10,7 +11,7 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('authToken');
+    const token = localStorage.getItem(LOCALSTORAGE_KEYS.ACCESS_TOKEN);
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
     }
@@ -22,17 +23,16 @@ instance.interceptors.request.use(
 const refreshAccessToken = async () => {
   try {
     const response = await authApi.RefreshToken({
-      refreshToken: localStorage.getItem('refreshToken'),
+      refreshToken: localStorage.getItem(LOCALSTORAGE_KEYS.REFRESH_TOKEN),
     });
 
     if (!response.succeed) return null;
 
-    localStorage.setItem('authToken', response.data.token);
-    localStorage.setItem('refreshToken', response.data.refreshToken);
+    localStorage.setItem(LOCALSTORAGE_KEYS.ACCESS_TOKEN, response.data.token);
+    localStorage.setItem(LOCALSTORAGE_KEYS.REFRESH_TOKEN, response.data.refreshToken);
     return response.data.token;
   } catch (error) {
     console.error('Failed to refresh token', error);
-    alert(error);
     window.location.href = '/login';
     return null;
   }

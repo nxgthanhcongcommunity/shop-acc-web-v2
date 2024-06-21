@@ -2,13 +2,12 @@ import { GoogleOAuthProvider, useGoogleLogin } from "@react-oauth/google";
 import { Breadcrumb, ICONS } from "../conponents";
 import { authApi } from "../api";
 import { JwtPayload, jwtDecode } from "jwt-decode";
-import { useDispatch } from "../stores/hooks";
+import { useDispatch, useSelector } from "../stores/hooks";
 import { assignAuthInfo } from "../stores/features/authSlice";
 import { useNavigate, useSearchParams } from "react-router-dom";
-
-interface IDecoded extends JwtPayload {
-  account: any;
-}
+import { GetAccountByCode, GoogleLoginAsync } from "../stores/features/userSlice";
+import { LOCALSTORAGE_KEYS } from "../constants";
+import { useEffect } from "react";
 
 const Login = () => {
   return (
@@ -19,32 +18,23 @@ const Login = () => {
 };
 
 const LoginContainer = () => {
+
+  const user = useSelector(states => states.user);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
   const handleGoogleLogin = useGoogleLogin({
     onSuccess: async (credential) => {
-      console.log(credential);
-
-      const response = await authApi.LoginWithGoogle(credential);
-
-      console.log("response:", response)
-
-      if (!response.succeed) return;
-
-      const { token, refreshToken } = response.data;
-
-      localStorage.setItem("authToken", token);
-      localStorage.setItem("refreshToken", refreshToken);
-
-      const decoded = jwtDecode<IDecoded>(token);
-
-      dispatch(assignAuthInfo(decoded.account));
-
-      navigate(searchParams.get("redirect-from") || "/");
+      dispatch(GoogleLoginAsync(credential));
     },
   });
+
+  useEffect(() => {
+    if (user.isLogged == false) return;
+    navigate(searchParams.get("redirect-from") || "/");
+  }, [user.isLogged])
 
   return (
     <div className="grow max-w-screen-xl mx-auto w-full">
@@ -63,6 +53,7 @@ const LoginContainer = () => {
             <ul className="my-4 space-y-3">
               <li>
                 <div
+                  // onClick={() => handleGoogleLogin()}
                   onClick={() => handleGoogleLogin()}
                   className="cursor-pointer flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white"
                 >

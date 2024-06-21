@@ -7,13 +7,10 @@ const PrivateElement = (props: any) => {
 
     const { children } = props;
 
-    const auth = useSelector((state: RootState) => state.auth);
+    const user = useSelector((state: RootState) => state.user);
     const location = useLocation();
 
-    console.log(auth.isLogged == null || auth.isLogged == false)
-
-
-    if (auth.isLogged == null || auth.isLogged == false) {
+    if (user.isLogged == false) {
         const to = `${ROUTER.LOGIN}?redirect-from=${location.pathname}${location.search}`;
         return <Navigate to={to} />
     }

@@ -13,13 +13,13 @@ interface IReviewModalProps {
 
 const ReviewModal = (props: IReviewModalProps) => {
   const { product, isShowModal, setIsShowModal } = props;
-  const auth = useSelector((state: RootState) => state.auth);
+  const user = useSelector((state: RootState) => state.user);
   const navigate = useNavigate();
 
   const handlePayment = async () => {
     const invoice = {
       totalAmount: product.price,
-      accountCode: auth.entity?.code,
+      accountCode: user.entity?.code,
     };
 
     const invoiceDetails = [

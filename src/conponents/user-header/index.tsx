@@ -9,9 +9,9 @@ import IconButton from "../button/iconButton";
 import { ROUTER } from "../../constants";
 
 const UserHeader = () => {
-  const auth = useSelector((state: RootState) => state.auth);
-  if (auth.isLogged) {
-    return <UserHeaderLogged auth={auth} />;
+  const user = useSelector((state: RootState) => state.user);
+  if (user.isLogged) {
+    return <UserHeaderLogged user={user} />;
   }
 
   return (
@@ -24,8 +24,8 @@ const UserHeader = () => {
 };
 
 const UserHeaderLogged = (props: any) => {
-  const { auth } = props;
-  const { entity }: { entity: IAccount } = auth;
+  const { user } = props;
+  const { entity }: { entity: IAccount } = user;
 
   const [isShow, dropDownRef, handleClick, handleMouseLeave] =
     useOutsideClick<HTMLDivElement>();

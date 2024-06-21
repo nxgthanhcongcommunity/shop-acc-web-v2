@@ -18,7 +18,7 @@ interface IInvoice {
 }
 
 const Reveived = () => {
-  const auth = useSelector((state: RootState) => state.auth);
+  const user = useSelector((state: RootState) => state.user);
   const [invoice, setInvoice] = useState<IInvoice>();
 
   const [searchParams] = useSearchParams();
@@ -46,7 +46,7 @@ const Reveived = () => {
           <h2 className="mb-6 text-xl font-medium text-hightLight">
             Cảm ơn bạn, đơn hàng đã được ghi nhận. Chúng tôi gửi thông tin tài
             khoản qua email:{" "}
-            <span className="text-blue-700">{auth.entity?.email}</span>
+            <span className="text-blue-700">{user.entity?.email}</span>
           </h2>
           <div className="flex items-stretch gap-x-10 bg-slate-100 p-8 relative bg-white rounded-lg shadow dark:bg-gray-700 p-4 border mt-8">
             <div className="text-sm">

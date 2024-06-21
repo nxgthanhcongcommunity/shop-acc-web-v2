@@ -10,7 +10,7 @@ import ReviewModal from "../conponents/review-modal";
 import { useState } from "react";
 import { useSelector } from "../stores/hooks";
 import { RootState } from "../stores";
-import { ROUTER } from "../constants";
+import { LOCALSTORAGE_KEYS, ROUTER } from "../constants";
 
 interface IProductInfoItemProps {
   title: string;
@@ -28,7 +28,7 @@ export const ProductInfoItem = (props: IProductInfoItemProps) => {
 };
 
 const Product = () => {
-  const auth = useSelector((state: RootState) => state.auth);
+  const user = useSelector((state: RootState) => state.user);
   const navigate = useNavigate();
 
   const location = useLocation();
@@ -56,7 +56,7 @@ const Product = () => {
   const { product, relatedProducts } = record;
 
   const handleBuyClick = () => {
-    if (auth.isLogged === false) {
+    if (!user.isLogged) {
       navigate(
         `${ROUTER.LOGIN}?redirect-from=${location.pathname}${location.search}`
       );

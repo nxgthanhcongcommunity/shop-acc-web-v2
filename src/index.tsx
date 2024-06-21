@@ -12,16 +12,17 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <WebSocketProvider>
+  // <React.StrictMode>
 
-        <ToastProvider>
-          <App />
-        </ToastProvider>
-      </WebSocketProvider>
-    </Provider>
-  </React.StrictMode>
+  // </React.StrictMode>
+  <Provider store={store}>
+    <WebSocketProvider>
+
+      <ToastProvider>
+        <App />
+      </ToastProvider>
+    </WebSocketProvider>
+  </Provider>
 );
 
 reportWebVitals();

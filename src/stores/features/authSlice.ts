@@ -1,4 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { LOCALSTORAGE_KEYS } from "../../constants";
 
 export interface IAccount {
   id: number;
@@ -17,7 +18,7 @@ export interface IAuthState {
 
 const loadState = () => {
   try {
-    const serializedState = localStorage.getItem("auth");
+    const serializedState = localStorage.getItem(LOCALSTORAGE_KEYS.LOCAL_USER);
     if (serializedState == null) {
       return { entity: null } as IAuthState;
     }
@@ -49,8 +50,8 @@ const authSlice = createSlice({
 const saveState = (state: IAuthState) => {
   try {
     const serializedState = JSON.stringify(state);
-    localStorage.setItem("auth", serializedState);
-  } catch (err) {}
+    localStorage.setItem(LOCALSTORAGE_KEYS.LOCAL_USER, serializedState);
+  } catch (err) { }
 };
 
 export const { assignAuthInfo, removeAuthInfo } = authSlice.actions;

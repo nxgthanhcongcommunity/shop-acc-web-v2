@@ -1,4 +1,9 @@
 
+interface IResponse {
+    succeed: boolean;
+    data: any;
+}
+
 export const errorInstance = {
     succeed: false,
     data: null,

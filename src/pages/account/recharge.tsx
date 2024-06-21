@@ -7,7 +7,7 @@ import { useSelector } from "../../stores/hooks";
 import { RootState } from "../../stores";
 
 const Recharge = () => {
-  const auth = useSelector((state: RootState) => state.auth);
+  const user = useSelector((state: RootState) => state.user);
 
   const providerHandler = {
     [PAYMENT_PROVIDERS.VNPAY]: async (props: any) => {
@@ -25,11 +25,11 @@ const Recharge = () => {
 
   const handlePayment = async (props: any) => {
     const { provider, bankCode, amount } = props;
-    if (!auth.entity) {
+    if (!user.entity) {
       return;
     }
     await providerHandler[provider]({
-      accountCode: auth.entity.code,
+      accountCode: user.entity.code,
       bankCode,
       amount,
     })

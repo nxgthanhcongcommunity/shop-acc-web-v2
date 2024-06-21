@@ -3,12 +3,14 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 import masterReducer from "./features/masterSlice";
 import authReducer from "./features/authSlice";
 import masterDataApi from "./services/master-data-api";
+import userReducer from "./features/userSlice";
 
 export const store = configureStore({
   devTools: true,
   reducer: {
     master: masterReducer,
-    auth: authReducer,
+    user: userReducer,
+    // auth: authReducer,
     [masterDataApi.reducerPath]: masterDataApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>

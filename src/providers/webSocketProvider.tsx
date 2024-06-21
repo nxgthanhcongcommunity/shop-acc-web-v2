@@ -27,15 +27,15 @@ const WebSocketProvider = (props: IWebSocketProvider) => {
     const [ws, setWs] = useState<WebSocket | null>(null);
     const wsRef = useRef<WebSocket | null>(null);
 
-    const auth = useSelector((state: RootState) => state.auth);
+    const user = useSelector((state: RootState) => state.user);
 
 
     useEffect(() => {
-        if (auth.entity == null) return;
+        if (user.entity == null) return;
 
         // if (("" + accountCode).length == 0) return;
         const connect = () => {
-            const socket = new WebSocket("ws://localhost:4004/?accountCode=" + auth.entity?.code); //+ accountCode USR-QDGVLE
+            const socket = new WebSocket("ws://localhost:4004/?accountCode=" + user.entity?.code); //+ accountCode USR-QDGVLE
 
             socket.onopen = () => {
                 console.log("ws conected");
@@ -62,7 +62,7 @@ const WebSocketProvider = (props: IWebSocketProvider) => {
             }
         }
 
-    }, [auth.entity]) //accountCode
+    }, [user.entity]) //accountCode
 
     return (
         <WebSocketContext.Provider value={{ ws }}>

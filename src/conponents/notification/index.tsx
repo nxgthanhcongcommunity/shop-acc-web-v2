@@ -10,7 +10,7 @@ import { useWebSocket } from "../../providers/webSocketProvider";
 import { TOASTMSG_TYPES } from "../../constants";
 
 const Notification = () => {
-    const auth = useSelector((state: RootState) => state.auth);
+    const user = useSelector((state: RootState) => state.user);
 
     const [isShow, dropDownRef, handleClick, handleMouseLeave] =
         useOutsideClick<HTMLDivElement>();
@@ -22,29 +22,36 @@ const Notification = () => {
     const [toggle, setToggle] = useState(false);
 
     useEffect(() => {
-        if (auth.entity == null) return;
+
+        const accountCode = user.entity?.code;
+        if (accountCode == null) return;
 
         (async () => {
+
             const response = await accountApi.GetNotifications({
-                accountCode: auth.entity?.code,
+                accountCode,
             });
 
-            console.log(response);
-
             if (response.succeed == false) {
+                addToastMessage({
+                    id: ("" + Date.now()),
+                    type: TOASTMSG_TYPES.SUCCESS,
+                    title: "Có lỗi xả ra",
+                    content: "Lấy danh sách thông báo không thành công",
+                })
                 return;
             }
 
             setNotifications(response.data.notifications);
         })();
-    }, [toggle, auth.entity]);
+    }, [toggle, user.entity]);
 
     const ws = useWebSocket();
 
     const handleMessage = (event: MessageEvent) => {
         const message = JSON.parse(event.data);
 
-        if (message.type === "BALANCE" && message.accountId === auth.entity?.id) {
+        if (message.type === "BALANCE" && message.accountCode === user.entity?.code) {
             setNotifications((prevNotifications: any) => [
                 message,
                 ...prevNotifications,
@@ -84,7 +91,7 @@ const Notification = () => {
 
     };
 
-    if (auth.entity == null) {
+    if (user.entity == null) {
         return <></>
     }
     return (

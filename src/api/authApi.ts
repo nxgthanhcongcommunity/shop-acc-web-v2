@@ -18,7 +18,7 @@ const authApi = {
       url: "auth/refresh",
       data,
     })
-  )
+  ),
 
 };
 
