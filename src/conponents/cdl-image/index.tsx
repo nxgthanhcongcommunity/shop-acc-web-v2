@@ -15,19 +15,22 @@ interface ICdlImageProps {
 }
 
 const CdlImage = (props: ICdlImageProps) => {
-
-
-  let { w = 255, h = 255, id } = props;
+  let { w, h, id } = props;
 
   if (id == null) {
     id = "shop-acc/x0hrnha2aq9xgseidnfb";
   }
+
   const myImage = cld.image(id);
 
-  // Resize to 250 x 250 pixels using the 'fill' crop mode.
-  const url = myImage.resize(fill().width(w).height(h)).toURL();
+  let url = "";
+  if (w && w > 0 && h && h > 0) {
+    url = myImage.resize(fill().width(w).height(h)).toURL();
+  } else {
+    url = myImage.resize(fill()).toURL();
+  }
 
-  return <img src={url} alt="image" className="" />;
+  return <img src={url} alt="..." />;
 };
 
 // const CdlImage = (props: ICdlImageProps) => {
