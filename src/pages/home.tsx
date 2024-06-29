@@ -10,9 +10,11 @@ const Home = () => {
   const [banners, setBanners] = useState([]);
 
   useEffect(() => {
+    if (masterData.entity == null) return;
+
     const { banners } = masterData.entity;
     setBanners(banners);
-  }, [masterData.loading]);
+  }, [masterData.loading, masterData.entity]);
 
   return (
     <div className="max-w-screen-xl mx-auto pt-6">

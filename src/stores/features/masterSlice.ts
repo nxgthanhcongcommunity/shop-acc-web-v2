@@ -4,9 +4,10 @@ import { masterDataApi } from "../../api";
 export const getByKey = createAsyncThunk(
   "masterData/getByKey",
   async (key: string, { rejectWithValue }) => {
-    const { succeed, data } = await masterDataApi.GetByKey({ key });
-    if (!succeed) return;
-    return data;
+    const response = await masterDataApi.GetByKey({ key });
+
+    if (response.succeed === false) return;
+    return response.data;
   }
 );
 

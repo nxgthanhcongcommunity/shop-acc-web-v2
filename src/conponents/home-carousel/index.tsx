@@ -17,6 +17,11 @@ const HomeCarousel = () => {
   if (masterData == null) {
     return <p>Loading...</p>;
   }
+
+  if (masterData.entity == null) {
+    return <p>Loading...</p>;
+  }
+
   const { entity } = masterData;
   const { sliders } = entity;
 

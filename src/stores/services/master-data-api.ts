@@ -12,12 +12,13 @@ const api = createApi({
   baseQuery,
   endpoints: (build) => ({
     getCategoriesByBannerCode: build.query<any, string>({
-      query: (code) => `category/get-categories-by-banner-code?code=${code}`,
+      query: (code) =>
+        `category/get-categories-by-banner-code?bannerCode=${code}`,
       transformResponse,
     }),
 
     getCategoryByCode: build.query<any, string>({
-      query: (code) => `category/get-category-by-code?code=${code}`,
+      query: (code) => `category/get-category-by-code?categoryCode=${code}`,
       transformResponse,
     }),
 
@@ -25,7 +26,6 @@ const api = createApi({
       query: (code) => `product/get-product-by-code?code=${code}`,
       transformResponse,
     }),
-
   }),
 });
 
