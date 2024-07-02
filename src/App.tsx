@@ -89,7 +89,11 @@ const router = createBrowserRouter(
             },
             {
               path: ROUTER.ORDER_RECEIVED,
-              element: <PrivateElement><OrderReceived /></PrivateElement>,
+              element: (
+                <PrivateElement>
+                  <OrderReceived />
+                </PrivateElement>
+              ),
               handle: {
                 crumb: (props: any) => {
                   return (
@@ -119,11 +123,19 @@ const router = createBrowserRouter(
           children: [
             {
               index: true,
-              element: <PrivateElement><AccountInfo /></PrivateElement>,
+              element: (
+                <PrivateElement>
+                  <AccountInfo />
+                </PrivateElement>
+              ),
             },
             {
               path: ROUTER.ACCOUNT_RECHARGE,
-              element: <PrivateElement><AccountRecharge /></PrivateElement>,
+              element: (
+                <PrivateElement>
+                  <AccountRecharge />
+                </PrivateElement>
+              ),
               handle: {
                 crumb: (props: any) => {
                   return (
@@ -138,7 +150,11 @@ const router = createBrowserRouter(
             },
             {
               path: ROUTER.ACCOUNT_RECEIVED,
-              element: <PrivateElement><AccountReceived /></PrivateElement>,
+              element: (
+                <PrivateElement>
+                  <AccountReceived />
+                </PrivateElement>
+              ),
               handle: {
                 crumb: (props: any) => {
                   return (
@@ -153,7 +169,11 @@ const router = createBrowserRouter(
             },
             {
               path: ROUTER.ACCOUNT_BALANCE,
-              element: <PrivateElement><AccountBalance /></PrivateElement>,
+              element: (
+                <PrivateElement>
+                  <AccountBalance />
+                </PrivateElement>
+              ),
               handle: {
                 crumb: (props: any) => {
                   return (
@@ -168,7 +188,11 @@ const router = createBrowserRouter(
             },
             {
               path: ROUTER.ACCOUNT_INVOICE,
-              element: <PrivateElement><AccountInvoice /></PrivateElement>,
+              element: (
+                <PrivateElement>
+                  <AccountInvoice />
+                </PrivateElement>
+              ),
               handle: {
                 crumb: (props: any) => {
                   return (
@@ -181,7 +205,6 @@ const router = createBrowserRouter(
                 },
               },
             },
-
           ],
         },
         {
@@ -192,7 +215,7 @@ const router = createBrowserRouter(
     },
   ],
   {
-    basename: "/",
+    basename: "/web",
   }
 );
 
