@@ -75,31 +75,38 @@ const Product = () => {
   const cdlIds = [product.mainFileCLDId, ...childCdlIds];
 
   return (
-    <div className="grow max-w-screen-xl mx-auto w-full">
+    <div className="max-w-screen-xl mx-auto px-4">
       <Breadcrumb />
-      <div className="my-12 grid grid-cols-[60%_40%] gap-x-4">
+      <div className="my-12 grid grid-cols-1 md:grid-cols-[60%_40%] gap-x-4 gap-y-8">
         <div className="block p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
           <ProductGallery cdlIds={cdlIds} />
         </div>
         <div className="block p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
           <SectionTitle title={product.name} tagTitle="VIP" />
-          <p className="text-md font-bold">Mã số: #{product.code}</p>
+          <p className="text-md font-bold mb-2">Mã số: #{product.code}</p>
           <hr className="h-px bg-gray-200 border-0 dark:bg-gray-700"></hr>
-          <div className="relative bg-white rounded-lg shadow dark:bg-gray-700 p-4 border mt-8">
-            <h2 className="font-semibold text-md mb-4">Thông tin tài khoản</h2>
-            <div className="flex flex-col gap-y-4">
-              <ProductInfoItem
-                title={"Loại tài khoản"}
-                value={product.category.name}
-              />
-              <ProductInfoItem title={"Server"} value={product.server} />
-              <ProductInfoItem title={"Đăng nhập"} value={product.loginType} />
-              <ProductInfoItem
-                title={"Hệ điều hành"}
-                value={product.operatingSystem}
-              />
-              <ProductInfoItem title={"Gem/Chono"} value={product.gemChono} />
-              <ProductInfoItem title={"Mô tả"} value={product.descriptions} />
+          <div className="relative bg-white rounded-lg shadow dark:bg-gray-700 p-4 border mt-4">
+            <div className="overflow-y-scroll h-48">
+              <h2 className="font-semibold text-md mb-4">
+                Thông tin tài khoản
+              </h2>
+              <div className="flex flex-col gap-y-4">
+                <ProductInfoItem
+                  title={"Loại tài khoản"}
+                  value={product.category.name}
+                />
+                <ProductInfoItem title={"Server"} value={product.server} />
+                <ProductInfoItem
+                  title={"Đăng nhập"}
+                  value={product.loginType}
+                />
+                <ProductInfoItem
+                  title={"Hệ điều hành"}
+                  value={product.operatingSystem}
+                />
+                <ProductInfoItem title={"Gem/Chono"} value={product.gemChono} />
+                <ProductInfoItem title={"Mô tả"} value={product.descriptions} />
+              </div>
             </div>
           </div>
 
