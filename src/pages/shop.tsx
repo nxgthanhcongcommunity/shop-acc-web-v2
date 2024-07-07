@@ -25,7 +25,7 @@ const Shop = () => {
   }
 
   return (
-    <div className="max-w-screen-xl mx-auto px-4">
+    <div className="grow max-w-screen-xl mx-auto w-full">
       <Breadcrumb />
       <div className="mt-4 md:mt-4 mb-2 flex justify-start gap-x-3">
         <SectionTitle title={record.name} tagTitle="VIP" />-

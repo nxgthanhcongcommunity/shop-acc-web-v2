@@ -34,7 +34,9 @@ const Header = () => {
             </button>
           </Link>
 
-          <Notification />
+          <div className="hidden md:block">
+            <Notification />
+          </div>
 
           <div className="hidden md:block">
             <UserHeader />

@@ -16,9 +16,9 @@ const Footer = () => {
     <footer className="bg-white dark:bg-gray-800 border-t border-gray-200">
       <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
         <div className="md:grid md:grid-cols-12 md:justify-between">
-          <div className="mb-6 md:mb-0 md:col-span-4">
+          <div className="mb-12 md:mb-0 md:col-span-4">
             <Logo />
-            <p className="font-medium mt-4 ">
+            <p className="font-medium md:mt-12 mt-8">
               Shop Chính Thức Của HuyLH Chuyên Bán Acc DragonBall Uy Tín, Giá
               Rẻ, Giao Dịch Tự Ðộng 100%, Hỗ Trợ Tận Tình.
             </p>

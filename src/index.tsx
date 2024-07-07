@@ -6,6 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import { store } from "./stores";
 import { ToastProvider, WebSocketProvider } from "./providers";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -17,7 +18,6 @@ root.render(
   // </React.StrictMode>
   <Provider store={store}>
     <WebSocketProvider>
-
       <ToastProvider>
         <App />
       </ToastProvider>

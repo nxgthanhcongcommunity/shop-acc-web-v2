@@ -15,7 +15,7 @@ const ProductGallery = (props: IProductGalleryProps) => {
     renderThumbInner: (item: any) => {
       try {
         return (
-          <div className="rounded overflow-hidden">
+          <div className="rounded-md overflow-hidden">
             <CdlImage id={item.original} />
           </div>
         );
@@ -27,7 +27,10 @@ const ProductGallery = (props: IProductGalleryProps) => {
       try {
         return (
           <div className="rounded-2xl overflow-hidden">
-            <CdlImage id={item.original} />
+            <CdlImage
+              id={item.original}
+              twClass="h-[400px] w-full object-cover"
+            />
           </div>
         );
       } catch (ex) {
