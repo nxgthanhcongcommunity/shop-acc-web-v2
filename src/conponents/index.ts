@@ -14,3 +14,4 @@ export { default as SelectField } from "./select-field";
 export { default as InputField } from "./input-field";
 export { default as IconButton } from "./button/iconButton";
 export { default as CdlImage } from "./cdl-image";
+export { default as MobileMenu } from "./mobile-menu";

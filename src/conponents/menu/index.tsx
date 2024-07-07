@@ -15,7 +15,7 @@ const Menu = (props: IMenuProps) => {
         className="items-center justify-between hidden w-full md:flex md:flex-col md:w-auto md:order-1 cursor-pointer"
       >
         <TitleButton>
-          <ICONS.MENU />{" "} Danh mục
+          <ICONS.MENU /> Danh mục
         </TitleButton>
       </div>
     </div>

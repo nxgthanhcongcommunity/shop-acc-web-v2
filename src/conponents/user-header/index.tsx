@@ -15,12 +15,12 @@ const UserHeader = () => {
   }
 
   return (
-    <Link to={ROUTER.LOGIN} >
+    <Link to={ROUTER.LOGIN}>
       <IconButton>
         <ICONS.ACCOUNT />
       </IconButton>
     </Link>
-  )
+  );
 };
 
 const UserHeaderLogged = (props: any) => {
@@ -36,7 +36,7 @@ const UserHeaderLogged = (props: any) => {
         className="flex gap-x-2 relative cursor-pointer"
         onClick={handleClick}
       >
-        <div>
+        <div className="md:block hidden">
           <h4 className="text-sm font-medium">{entity.givenName}</h4>
           <p className="text-sm">
             Số dư: <span>30.000</span>

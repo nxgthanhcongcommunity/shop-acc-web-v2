@@ -1,6 +1,7 @@
 .mySwiper {
   position: relative;
   height: 360px !important;
+  border-radius: 20px;
 }
 
 .swiper-wrapper {

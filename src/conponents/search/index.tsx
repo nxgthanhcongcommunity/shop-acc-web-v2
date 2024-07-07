@@ -2,7 +2,7 @@ import ICONS from "../icons";
 
 const Search = () => {
   return (
-    <form className="w-80 mx-auto hidden md:block">
+    <form className="w-80 mx-auto block">
       <div className="relative">
         <input
           type="search"

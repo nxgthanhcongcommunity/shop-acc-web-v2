@@ -7,6 +7,8 @@ import Menu from "../menu";
 import Notification from "../notification";
 import Search from "../search";
 import UserHeader from "../user-header";
+import ICONS from "../icons";
+import { IconButton, MobileMenu } from "..";
 
 const Header = () => {
   const [isShow, dropDownRef, handleClick, handleMouseLeave] =
@@ -22,7 +24,9 @@ const Header = () => {
           <Logo />
           <Menu onClick={handleClick} />
         </div>
-        <Search />
+        <div className="hidden md:block">
+          <Search />
+        </div>
         <div className="flex items-center gap-x-4">
           <Link to={ROUTER.ACCOUNT_RECHARGE}>
             <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 h-10 flex items-center">
@@ -33,6 +37,9 @@ const Header = () => {
           <Notification />
 
           <UserHeader />
+          <div className="md:hidden block">
+            <MobileMenu />
+          </div>
         </div>
       </div>
       <CategoriesMenu isShow={isShow} onMouseLeave={handleMouseLeave} />
