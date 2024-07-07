@@ -5,7 +5,7 @@ import { useGetCategoryByCodeQuery } from "../stores/services/master-data-api";
 import Tag from "../conponents/tag";
 
 const Shop = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const {
     isError,

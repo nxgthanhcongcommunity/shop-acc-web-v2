@@ -1,6 +1,7 @@
 import { UIMatch, useMatches } from "react-router-dom";
 import ICONS from "../icons";
 import BreadcrumbItem from "./breadcrumbItem";
+import React from "react";
 
 interface MatchHandle {
   crumb: (data: any) => React.ReactNode;
@@ -36,14 +37,14 @@ const Breadcrumb = () => {
           <ICONS.ARROW_RIGHT />
         </li>
         {crumbs.map((crumb, index) => (
-          <div key={index}>
+          <React.Fragment key={index}>
             <li className="inline-flex items-center">{crumb}</li>
             {index !== countOfCrumbs - 1 && (
               <li>
                 <ICONS.ARROW_RIGHT />
               </li>
             )}
-          </div>
+          </React.Fragment>
         ))}
       </ol>
     </nav>

@@ -6,11 +6,12 @@ const Account = () => {
     <>
       <div className="grow max-w-screen-xl mx-auto w-full">
         <Breadcrumb />
-        <div className="grid grid-cols-[4fr_8fr]">
-          <UserDropdownContent unLimitHeight />
+        <div className="grid md:grid-cols-[4fr_8fr] overflow-x-scroll">
+          <div className="hidden md:block">
+            <UserDropdownContent unLimitHeight />
+          </div>
           <div className="p-4 md:p-5">
             <Outlet />
-
           </div>
         </div>
       </div>
