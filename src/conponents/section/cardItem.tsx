@@ -25,7 +25,7 @@ const CardItem = (props: ICardItemProps) => {
         <div className="rounded-md overflow-hidden mb-4">
           <CdlImage twClass="h-[160px] w-full object-cover" id={imgId} />
         </div>
-        <h5 className="md:mb-1 text-md md:text-xl font-medium tracking-tight text-gray-800 dark:text-white">
+        <h5 className="md:mb-1 text-md md:text-lg font-medium tracking-tight text-gray-800 dark:text-white">
           {title}
         </h5>
         {listParagraph.map((item) => item)}

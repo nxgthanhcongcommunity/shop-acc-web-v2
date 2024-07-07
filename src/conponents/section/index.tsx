@@ -31,7 +31,7 @@ const Section = (props: ISectionProps) => {
   return (
     <section className="mt-16">
       <SectionTitle title={banner.name} tagTitle={banner.tag} />
-      <div className="grid md:grid-cols-4 grid-cols-2 gap-4">
+      <div className="mt-4 grid md:grid-cols-4 grid-cols-2 gap-4">
         {records.map((record: any) => {
           const countOfProducts = record.products.reduce(
             (accumulator: number, currentValue: any) =>

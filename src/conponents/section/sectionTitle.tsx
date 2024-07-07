@@ -1,3 +1,5 @@
+import Tag from "../tag";
+
 interface ISectionTitleProps {
   title: string;
   tagTitle: string;
@@ -6,11 +8,9 @@ interface ISectionTitleProps {
 const SectionTitle = (props: ISectionTitleProps) => {
   const { title, tagTitle } = props;
   return (
-    <h1 className="flex items-center text-lg md:text-3xl font-bold dark:text-white mb-4">
+    <h1 className="flex items-center text-lg md:text-3xl font-bold dark:text-white gap-x-2">
       {title}
-      <span className="bg-blue-100 text-blue-800 text-xs md:text-sm font-semibold me-2 px-1.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-2 uppercase">
-        {tagTitle}
-      </span>
+      <Tag tagTitle={tagTitle} />
     </h1>
   );
 };

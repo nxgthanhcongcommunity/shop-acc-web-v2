@@ -2,6 +2,7 @@ import { useSearchParams } from "react-router-dom";
 import { Breadcrumb, CardItem, SectionTitle, ShopHeader } from "../conponents";
 import { ROUTER } from "../constants";
 import { useGetCategoryByCodeQuery } from "../stores/services/master-data-api";
+import Tag from "../conponents/tag";
 
 const Shop = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -24,19 +25,17 @@ const Shop = () => {
   }
 
   return (
-    <div className="grow max-w-screen-xl mx-auto w-full">
+    <div className="max-w-screen-xl mx-auto px-4">
       <Breadcrumb />
-      <div className="mt-12">
-        <SectionTitle title={record.name} tagTitle="VIP" />
+      <div className="mt-4 md:mt-4 mb-2 flex justify-start gap-x-3">
+        <SectionTitle title={record.name} tagTitle="VIP" />-
+        <Tag tagTitle="100 sản phẩm" />
       </div>
-      <div className="py-2">
-        <ShopHeader total={record.products.length} />
-      </div>
-      <div className="grid grid-cols-4 gap-4">
+      <ShopHeader />
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {record.products.map((product: any) => {
           return (
             <CardItem
-              // key={record.code}
               isActived={product.quantity.currentQuantity > 0}
               key={product.code}
               href={`${ROUTER.PRODUCT}?productCode=${product.code}`}

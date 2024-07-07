@@ -36,7 +36,10 @@ const Header = () => {
 
           <Notification />
 
-          <UserHeader />
+          <div className="hidden md:block">
+            <UserHeader />
+          </div>
+
           <div className="md:hidden block">
             <MobileMenu />
           </div>
