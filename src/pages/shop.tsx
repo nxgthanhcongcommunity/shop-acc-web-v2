@@ -1,10 +1,5 @@
 import { useSearchParams } from "react-router-dom";
-import {
-  Breadcrumb,
-  CardItem,
-  SectionTitle,
-  ShopHeader
-} from "../conponents";
+import { Breadcrumb, CardItem, SectionTitle, ShopHeader } from "../conponents";
 import { ROUTER } from "../constants";
 import { useGetCategoryByCodeQuery } from "../stores/services/master-data-api";
 
@@ -39,27 +34,33 @@ const Shop = () => {
       </div>
       <div className="grid grid-cols-4 gap-4">
         {record.products.map((product: any) => {
-
           return (
             <CardItem
+              // key={record.code}
               isActived={product.quantity.currentQuantity > 0}
               key={product.code}
               href={`${ROUTER.PRODUCT}?productCode=${product.code}`}
               imgId={product.mainFileCLDId}
               title={product.name}
               listParagraph={[
-                <p className="text-sm font-medium text-gray-700">
+                <p key={"Giá"} className="text-sm font-medium text-gray-700">
                   Giá: {product.price}
                 </p>,
-                <p className="text-sm font-medium text-gray-700">
+                <p
+                  key={"Số lượng"}
+                  className="text-sm font-medium text-gray-700"
+                >
                   Số lượng: {product.quantity.currentQuantity}
                 </p>,
-                <p className="text-sm font-medium text-gray-700">
+                <p
+                  key={"Gem/Chono"}
+                  className="text-sm font-medium text-gray-700"
+                >
                   Gem/Chono: {product.gemChono}
                 </p>,
               ]}
             />
-          )
+          );
         })}
       </div>
       {/* <Section banner={undefined} /> */}

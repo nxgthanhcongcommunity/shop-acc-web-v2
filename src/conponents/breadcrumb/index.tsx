@@ -36,16 +36,14 @@ const Breadcrumb = () => {
           <ICONS.ARROW_RIGHT />
         </li>
         {crumbs.map((crumb, index) => (
-          <>
-            <li className="inline-flex items-center" key={index}>
-              {crumb}
-            </li>
+          <div key={index}>
+            <li className="inline-flex items-center">{crumb}</li>
             {index !== countOfCrumbs - 1 && (
               <li>
                 <ICONS.ARROW_RIGHT />
               </li>
             )}
-          </>
+          </div>
         ))}
       </ol>
     </nav>

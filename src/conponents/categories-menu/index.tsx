@@ -20,14 +20,16 @@ const CategoriesMenu = (props: ICategoriesMenuProps) => {
 
   return (
     <div
-      className={`overflow-hidden duration-1000 ${isShow || isHovered ? "max-h-screen" : "max-h-0"}`}
+      className={`overflow-hidden duration-1000 ${
+        isShow || isHovered ? "max-h-screen" : "max-h-0"
+      }`}
       onMouseLeave={handleMouseLeave}
       onMouseEnter={() => setIsHovered(true)}
     >
       <ul className="flex items-center gap-x-8 max-w-screen-lg mx-auto py-3">
         {CATEGORIES_MENU.map((cateConfig) => (
-          <Link to={cateConfig.href}>
-            <TitleButton bg isActived={cateConfig.href == location.pathname}>
+          <Link key={cateConfig.title} to={cateConfig.href}>
+            <TitleButton bg isActived={cateConfig.href === location.pathname}>
               {cateConfig.icon}
               {cateConfig.title}
             </TitleButton>

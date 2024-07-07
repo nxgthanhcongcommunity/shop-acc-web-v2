@@ -1,17 +1,29 @@
 import { FOOTER_COLUMNS, SOCIAL_ITEMS } from "../../constants";
+import { selectMaster } from "../../stores/features/masterSlice";
+import { useSelector } from "../../stores/hooks";
 import Logo from "../logo";
 import FooterColumn from "./footerColumn";
 import SocialItem from "./socialItem";
 
 const Footer = () => {
+  const masterData = useSelector(selectMaster);
+
+  if (masterData.loading) {
+    return <span>loading....</span>;
+  }
+
   return (
     <footer className="bg-white dark:bg-gray-800 border-t border-gray-200">
       <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
-        <div className="md:flex md:justify-between">
-          <div className="mb-6 md:mb-0">
+        <div className="md:grid md:grid-cols-12 md:justify-between">
+          <div className="mb-6 md:mb-0 md:col-span-4">
             <Logo />
+            <p className="font-medium mt-4 ">
+              Shop Chính Thức Của HuyLH Chuyên Bán Acc DragonBall Uy Tín, Giá
+              Rẻ, Giao Dịch Tự Ðộng 100%, Hỗ Trợ Tận Tình.
+            </p>
           </div>
-          <div className="grid grid-cols-2 gap-8 sm:gap-8 sm:grid-cols-4">
+          <div className="grid grid-cols-2 gap-8 sm:gap-8 sm:grid-cols-3 md:col-span-6 md:col-start-7">
             {FOOTER_COLUMNS.map((item) => (
               <FooterColumn {...item} key={item.title} />
             ))}

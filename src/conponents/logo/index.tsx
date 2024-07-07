@@ -12,9 +12,7 @@ interface ILogoState {
 
 const Logo = () => {
   const [states, setStates] = useState<ILogoState | null>(null);
-
   const masterData = useSelector(selectMaster);
-  console.log("masterData.entity", masterData.entity);
 
   useEffect(() => {
     if (masterData.entity != null) {
@@ -27,14 +25,12 @@ const Logo = () => {
     return <p>Loading...</p>;
   }
 
-  console.log(states);
-
   return (
     <Link
       to={ROUTER.ROOT}
       className="flex items-center space-x-3 rtl:space-x-reverse"
     >
-      <CdlImage w={12} h={12} id={states.logoUrl} />
+      <CdlImage w={140} id={states.logoUrl} />
       <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
         {states.shopName}
       </span>

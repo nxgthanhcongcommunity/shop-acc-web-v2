@@ -1,12 +1,12 @@
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
-// import required modules
-import { Pagination } from "swiper/modules";
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
+import "swiper/css/navigation";
 import "./styles.css";
 import { useSelector } from "../../stores/hooks";
 import { selectMaster } from "../../stores/features/masterSlice";
@@ -26,23 +26,29 @@ const HomeCarousel = () => {
   const { sliders } = entity;
 
   return (
-    <div className="relative h-full">
+    <>
       <Swiper
+        spaceBetween={30}
+        centeredSlides={true}
+        // autoplay={{
+        //   delay: 2500,
+        //   disableOnInteraction: false,
+        // }}
         pagination={{
-          dynamicBullets: true,
+          clickable: true,
         }}
-        loop
-        modules={[Pagination]}
+        navigation={true}
+        modules={[Autoplay, Pagination, Navigation]}
         className="mySwiper"
       >
         {sliders &&
           sliders.map((item: any) => (
             <SwiperSlide>
-              <CdlImage id={item.cdlId} />
+              <CdlImage id={item.cdlId} twClass="h-full w-full object-cover" />
             </SwiperSlide>
           ))}
       </Swiper>
-    </div>
+    </>
   );
 };
 

@@ -13,15 +13,14 @@ interface ICardItemProps {
 const CardItem = (props: ICardItemProps) => {
   const { href, imgId, title, listParagraph, isActived } = props;
 
+  const preventDefaultConditionCheck = (e: any) => {
+    if (isActived === false) {
+      e.preventDefault();
+    }
+  };
+
   return (
-    <Link
-      to={href}
-      onClick={(e) => {
-        if (isActived == false) {
-          e.preventDefault();
-        }
-      }}
-    >
+    <Link to={href} onClick={preventDefaultConditionCheck}>
       <div className="pb-12 block max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 h-full">
         <div className="rounded-md overflow-hidden mb-4">
           <CdlImage id={imgId} />

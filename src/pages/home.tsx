@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { HomeCarousel, Section } from "../conponents";
-import { useDispatch, useSelector } from "../stores/hooks";
-import { getByKey, selectMaster } from "../stores/features/masterSlice";
-import React from "react";
+import { selectMaster } from "../stores/features/masterSlice";
+import { useSelector } from "../stores/hooks";
 
 const Home = () => {
   const masterData = useSelector(selectMaster);
@@ -17,10 +16,9 @@ const Home = () => {
   }, [masterData.loading, masterData.entity]);
 
   return (
-    <div className="max-w-screen-xl mx-auto pt-6">
-      <div className="rounded-2xl overflow-hidden h-96">
-        <HomeCarousel />
-      </div>
+    <div className="max-w-screen-xl mx-auto pt-6 px-4">
+      <HomeCarousel />
+
       {banners &&
         banners.map((banner: any, index: number) => (
           <React.Fragment key={banner.code}>
