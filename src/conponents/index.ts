@@ -10,6 +10,7 @@ export { default as ProductGallery } from "./product-gallery";
 export { default as UserDropdown } from "./user-header/userDropdown";
 export { default as UserDropdownContent } from "./user-header/userDropdownContent";
 export { default as ICONS } from "./icons";
+export { default as BUTTONS } from "./button";
 export { default as SelectField } from "./select-field";
 export { default as InputField } from "./input-field";
 export { default as IconButton } from "./button/iconButton";

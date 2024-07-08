@@ -1,8 +1,8 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { IconButton, ICONS, UserDropdownContent } from "..";
+import { IconButton, ICONS } from "..";
 import { ROUTER } from "../../constants";
 import Search from "../search";
-import { useState } from "react";
 import Account from "./account";
 
 const MobileMenu = () => {

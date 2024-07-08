@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { accountApi, authApi, masterDataApi } from "../../api";
-import { LOCALSTORAGE_KEYS } from "../../constants";
 import { JwtPayload, jwtDecode } from "jwt-decode";
+import { accountApi, authApi } from "../../api";
+import { LOCALSTORAGE_KEYS } from "../../constants";
 
 interface IAccount {
   code: string;
@@ -25,7 +25,7 @@ export const GoogleLoginAsync = createAsyncThunk(
     const response = await authApi.LoginWithGoogle({
       accessToken: credential.access_token,
     });
-    if (response.succeed == false) return;
+    if (response.succeed === false) return;
 
     const { token, refreshToken } = response.data;
     localStorage.setItem(LOCALSTORAGE_KEYS.ACCESS_TOKEN, token);

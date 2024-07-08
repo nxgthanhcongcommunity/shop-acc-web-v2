@@ -1,3 +1,14 @@
+interface IInputFieldProps {
+  field: string;
+  fieldName: string;
+  type: string;
+  register: any;
+  errors: any;
+  defaultValue?: any;
+  placeHolder?: any;
+  validator?: any;
+}
+
 const InputField = ({
   field,
   fieldName,
@@ -7,7 +18,7 @@ const InputField = ({
   defaultValue,
   placeHolder,
   validator,
-}: any) => {
+}: IInputFieldProps) => {
   return (
     <>
       <label

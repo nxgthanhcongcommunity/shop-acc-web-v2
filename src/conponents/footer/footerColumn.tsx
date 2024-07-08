@@ -1,10 +1,11 @@
+import { ReactNode } from "react";
 import { Link } from "react-router-dom";
 
 export interface IFooterColumnProps {
   title: string;
-  icon?: any;
+  icon?: ReactNode;
   items: {
-    icon?: any;
+    icon?: ReactNode;
     title: string;
     href: string;
   }[];

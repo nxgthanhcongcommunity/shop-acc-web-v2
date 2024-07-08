@@ -4,18 +4,17 @@ import { RootState } from "../../stores";
 import { useSelector } from "../../stores/hooks";
 
 const PrivateElement = (props: any) => {
+  const { children } = props;
 
-    const { children } = props;
+  const user = useSelector((state: RootState) => state.user);
+  const location = useLocation();
 
-    const user = useSelector((state: RootState) => state.user);
-    const location = useLocation();
+  if (user.isLogged === false) {
+    const to = `${ROUTER.LOGIN}?redirect-from=${location.pathname}${location.search}`;
+    return <Navigate to={to} />;
+  }
 
-    if (user.isLogged == false) {
-        const to = `${ROUTER.LOGIN}?redirect-from=${location.pathname}${location.search}`;
-        return <Navigate to={to} />
-    }
-
-    return children;
+  return children;
 };
 
 export default PrivateElement;
