@@ -1,39 +1,47 @@
 import { useSearchParams } from "react-router-dom";
-import { Breadcrumb, CardItem, SectionTitle, ShopHeader } from "../conponents";
-import { ROUTER } from "../constants";
-import { useGetCategoryByCodeQuery } from "../stores/services/master-data-api";
+import { SectionTitle, ShopHeader } from "../conponents";
 import Tag from "../conponents/tag";
+import { ROUTER } from "../constants";
+import { useGetProductsByKeysQuery } from "../stores/services/master-data-api";
+import PageContainer from "./pageContainer";
+import { useSelector } from "../stores/hooks";
+import CardItem from "../conponents/section/cardItem";
 
 const Shop = () => {
+  const { searchText } = useSelector((states) => states.app);
+
   const [searchParams] = useSearchParams();
 
-  const {
-    isError,
-    isLoading,
-    data: record,
-  } = useGetCategoryByCodeQuery("" + searchParams.get("categoryCode"));
-  if (isError) {
-    return null;
-  }
+  const { isError, isLoading, data } = useGetProductsByKeysQuery({
+    categoryCode: searchParams.get("categoryCode"),
+    searchText,
+  });
 
-  if (isLoading) {
-    return null;
-  }
-
-  if (record == null || record.length === 0) {
+  if (
+    isLoading ||
+    isError ||
+    data.records == null ||
+    data.records.length === 0
+  ) {
     return null;
   }
 
   return (
-    <div className="grow max-w-screen-xl mx-auto w-full">
-      <Breadcrumb />
+    <PageContainer isBreadcrumb>
       <div className="mt-4 md:mt-4 mb-2 flex justify-start gap-x-3">
-        <SectionTitle title={record.name} tagTitle="VIP" />-
+        {searchText.length > 0 ? (
+          <div className="flex items-baseline">
+            Tìm kiếm: <SectionTitle title={searchText} tagTitle="VIP" />
+          </div>
+        ) : (
+          <SectionTitle title="record.name" tagTitle="VIP" />
+        )}
+        -
         <Tag tagTitle="100 sản phẩm" />
       </div>
       <ShopHeader />
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {record.products.map((product: any) => {
+        {data.records.map((product: any) => {
           return (
             <CardItem
               isActived={product.quantity.currentQuantity > 0}
@@ -64,7 +72,7 @@ const Shop = () => {
       </div>
       {/* <Section banner={undefined} /> */}
       <div className="h-12"></div>
-    </div>
+    </PageContainer>
   );
 };
 

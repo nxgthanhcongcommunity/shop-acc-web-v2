@@ -22,10 +22,10 @@ const Breadcrumb = () => {
 
   return (
     <nav
-      className="p-4 md:p-5 flex w-full h-12 items-stretch"
+      className="py-4 md:py-5 flex w-full h-12 items-stretch"
       aria-label="Breadcrumb"
     >
-      <ol className="inline-flex items-center gap-x-4">
+      <ol className="inline-flex items-center md:gap-x-4 gap-x-2">
         <li className="inline-flex items-center">
           <BreadcrumbItem
             path={"/"}

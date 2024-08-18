@@ -1,47 +1,85 @@
+import { Button, Dropdown, Flex, MenuProps, Space, Typography } from "antd";
 import { Link } from "react-router-dom";
-import { BUTTONS, ICONS, MobileMenu } from "..";
+import { ICONS, MobileMenu } from "..";
 import { ROUTER } from "../../constants";
-import { useOutsideClick } from "../../hooks";
-import TitleButton from "../button/titleButton";
-import CategoriesMenu from "../categories-menu";
 import Logo from "../logo";
 import Notification from "../notification";
-import Search from "../search";
 import UserHeader from "../user-header";
 
+import { MenuOutlined, SearchOutlined } from "@ant-design/icons";
+import Search, { SearchProps } from "antd/es/input/Search";
+
 const Header = () => {
-  const [
-    isDropdownVisible,
-    dropDownRef,
-    handleDropdownClick,
-    handleMouseLeave,
-  ] = useOutsideClick<HTMLDivElement>();
+  const items: MenuProps["items"] = [
+    {
+      key: "1",
+      label: (
+        <Link to={ROUTER.ACCOUNT_RECHARGE}>
+          <Flex
+            align="baseline"
+            style={{
+              width: "150px",
+            }}
+          >
+            <Space>
+              <ICONS.RECHARGE />
+              Nạp thẻ
+            </Space>
+          </Flex>
+        </Link>
+      ),
+    },
+    {
+      key: "2",
+      label: (
+        <Link to={ROUTER.NEWS}>
+          <Flex
+            align="baseline"
+            style={{
+              width: "150px",
+            }}
+          >
+            <Space>
+              <ICONS.NEWSPAPER />
+              Tin tức
+            </Space>
+          </Flex>
+        </Link>
+      ),
+    },
+  ];
+
+  const onSearch: SearchProps["onSearch"] = (value, _e, info) =>
+    console.log(info?.source, value);
 
   return (
     <nav className="bg-white border-b border-gray-200 dark:bg-gray-800 fixed left-0 top-0 w-full z-40">
-      <div
-        className="flex flex-wrap items-center justify-between max-w-screen-xl mx-auto p-4"
-        ref={dropDownRef}
-      >
+      <div className="flex flex-wrap items-center justify-between max-w-screen-xl mx-auto p-4">
         <div className="flex items-center gap-x-12">
           <Logo />
-          {/* Menu trigger with onClick handler */}
-          <div
-            onClick={handleDropdownClick}
-            id="mega-menu"
-            className="items-center justify-between hidden w-full md:flex md:flex-col md:w-auto md:order-1 cursor-pointer"
+          <Dropdown
+            menu={{
+              items,
+              selectable: true,
+              defaultSelectedKeys: [""],
+            }}
           >
-            <TitleButton>
-              <ICONS.MENU /> Danh mục
-            </TitleButton>
-          </div>
+            <Button icon={<MenuOutlined />}>Menu</Button>
+          </Dropdown>
         </div>
         <div className="hidden md:block">
-          <Search />
+          <Search
+            placeholder="input search text"
+            onSearch={onSearch}
+            enterButton
+            style={{
+              width: "500px",
+            }}
+          />
         </div>
         <div className="flex items-center gap-x-4">
           <Link to={ROUTER.ACCOUNT_RECHARGE}>
-            <BUTTONS.PRIMARY>Nạp thẻ</BUTTONS.PRIMARY>
+            <Button type="primary">Nạp thẻ</Button>
           </Link>
           <div className="hidden md:block">
             <Notification />
@@ -54,11 +92,6 @@ const Header = () => {
           </div>
         </div>
       </div>
-      {/* CategoriesMenu component with visibility control and mouse leave handler */}
-      <CategoriesMenu
-        isShow={isDropdownVisible}
-        onMouseLeave={handleMouseLeave}
-      />
     </nav>
   );
 };

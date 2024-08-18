@@ -11,7 +11,7 @@ const transformResponse = (response: any) => {
 const api = createApi({
   baseQuery,
   endpoints: (build) => ({
-    getCategoriesByBannerCode: build.query<any, string>({
+    getCategoriesByBannerCode: build.query<any[], string>({
       query: (code) =>
         `category/get-categories-by-banner-code?bannerCode=${code}`,
       transformResponse,
@@ -26,6 +26,12 @@ const api = createApi({
       query: (code) => `product/get-product-by-code?code=${code}`,
       transformResponse,
     }),
+
+    getProductsByKeys: build.query({
+      query: (params) =>
+        `product/get-products-by-keys?${new URLSearchParams(params).toString()}`,
+      transformResponse,
+    }),
   }),
 });
 
@@ -33,5 +39,6 @@ export const {
   useGetCategoriesByBannerCodeQuery,
   useGetCategoryByCodeQuery,
   useGetProductByCodeQuery,
+  useGetProductsByKeysQuery,
 } = api;
 export default api;

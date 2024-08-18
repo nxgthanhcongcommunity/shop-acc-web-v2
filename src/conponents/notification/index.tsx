@@ -8,6 +8,8 @@ import ICONS from "../icons";
 import { accountApi } from "../../api";
 import { useWebSocket } from "../../providers/webSocketProvider";
 import { TOASTMSG_TYPES } from "../../constants";
+import { Avatar } from "antd";
+import { MenuOutlined, SearchOutlined, BellOutlined } from "@ant-design/icons";
 
 const Notification = () => {
   const user = useSelector((state: RootState) => state.user);
@@ -98,16 +100,7 @@ const Notification = () => {
     <div className="relative" ref={dropDownRef}>
       <div>
         <span onClick={handleClick}>
-          <IconButton>
-            <span className="relative">
-              <div
-                className={`w-2 h-2 absolute -right-1 -top-1 bg-green-900 rounded-full ${
-                  isHasNewNoti ? "block" : "hidden"
-                }`}
-              ></div>
-              <ICONS.BELL />
-            </span>
-          </IconButton>
+          <Avatar shape="square" icon={<BellOutlined />} />
         </span>
       </div>
       {isShow && (

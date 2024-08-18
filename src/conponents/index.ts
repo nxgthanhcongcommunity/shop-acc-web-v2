@@ -5,7 +5,6 @@ export { default as Breadcrumb } from "./breadcrumb";
 export { default as BreadcrumbItem } from "./breadcrumb/breadcrumbItem";
 export { default as SectionTitle } from "./section/sectionTitle";
 export { default as ShopHeader } from "./shop-header";
-export { default as CardItem } from "./section/cardItem";
 export { default as ProductGallery } from "./product-gallery";
 export { default as UserDropdown } from "./user-header/userDropdown";
 export { default as UserDropdownContent } from "./user-header/userDropdownContent";

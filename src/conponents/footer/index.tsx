@@ -1,9 +1,11 @@
-import { FOOTER_COLUMNS, SOCIAL_ITEMS } from "../../constants";
+import { Link } from "react-router-dom";
+import { FOOTER_COLUMNS, ROUTER, SOCIAL_ITEMS } from "../../constants";
 import { selectMaster } from "../../stores/features/masterSlice";
 import { useSelector } from "../../stores/hooks";
 import Logo from "../logo";
 import FooterColumn from "./footerColumn";
 import SocialItem from "./socialItem";
+import { Image } from "antd";
 
 const Footer = () => {
   const masterData = useSelector(selectMaster);
@@ -17,7 +19,15 @@ const Footer = () => {
       <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
         <div className="md:grid md:grid-cols-12 md:justify-between">
           <div className="mb-12 md:mb-0 md:col-span-4">
-            <Logo />
+            <Link
+              to={ROUTER.ROOT}
+              className="flex items-center space-x-3 rtl:space-x-reverse"
+            >
+              <Image
+                height={120}
+                src="https://res.cloudinary.com/dntsyzdh3/image/upload/v1723905175/shop-acc/logoLyHuy_dckaud.png"
+              />
+            </Link>
             <p className="font-medium md:mt-12 mt-8">
               Shop Chính Thức Của HuyLH Chuyên Bán Acc DragonBall Uy Tín, Giá
               Rẻ, Giao Dịch Tự Ðộng 100%, Hỗ Trợ Tận Tình.

@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import masterReducer from "./features/masterSlice";
-import authReducer from "./features/authSlice";
+import appReducer from "./features/appSlice";
 import masterDataApi from "./services/master-data-api";
 import userReducer from "./features/userSlice";
 
@@ -10,7 +10,7 @@ export const store = configureStore({
   reducer: {
     master: masterReducer,
     user: userReducer,
-    // auth: authReducer,
+    app: appReducer,
     [masterDataApi.reducerPath]: masterDataApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>

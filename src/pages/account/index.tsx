@@ -1,21 +1,19 @@
 import { Outlet } from "react-router-dom";
-import { Breadcrumb, UserDropdownContent } from "../../conponents";
+import { UserDropdownContent } from "../../conponents";
+import PageContainer from "../pageContainer";
 
 const Account = () => {
   return (
-    <>
-      <div className="grow max-w-screen-xl mx-auto w-full">
-        <Breadcrumb />
-        <div className="grid md:grid-cols-[4fr_8fr] overflow-x-scroll">
-          <div className="hidden md:block">
-            <UserDropdownContent unLimitHeight />
-          </div>
-          <div className="p-4 md:p-5">
-            <Outlet />
-          </div>
+    <PageContainer isBreadcrumb>
+      <div className="grid md:grid-cols-[4fr_8fr] overflow-x-scroll">
+        <div className="hidden md:block">
+          <UserDropdownContent unLimitHeight />
+        </div>
+        <div className="p-4 md:p-5">
+          <Outlet />
         </div>
       </div>
-    </>
+    </PageContainer>
   );
 };
 

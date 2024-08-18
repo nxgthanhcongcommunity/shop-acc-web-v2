@@ -10,29 +10,17 @@ interface ISectionProps {
 
 const Section = (props: ISectionProps) => {
   const { banner } = props;
+  const { data: records = [] } = useGetCategoriesByBannerCodeQuery(banner.code);
 
-  const {
-    isError,
-    isLoading,
-    data: records,
-  } = useGetCategoriesByBannerCodeQuery(banner.code);
-  if (isError) {
-    return null;
-  }
-
-  if (isLoading) {
-    return null;
-  }
-
-  if (records == null || records.length === 0) {
-    return null;
+  if (records.length === 0) {
+    return <></>;
   }
 
   return (
     <section className="mt-16">
       <SectionTitle title={banner.name} tagTitle={banner.tag} />
       <div className="mt-4 grid md:grid-cols-4 grid-cols-2 md:gap-4 gap-2">
-        {records.map((record: any) => {
+        {(records ?? []).map((record: any) => {
           const countOfProducts = record.products.reduce(
             (accumulator: number, currentValue: any) =>
               accumulator + currentValue.quantity.currentQuantity,

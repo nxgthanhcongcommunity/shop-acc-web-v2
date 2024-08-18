@@ -22,7 +22,7 @@ const UserDropdownContent = (props: IUserDropdownContentProps) => {
 
   return (
     <div
-      className={`p-4 md:p-5 flex flex-col gap-y-4 ${unLimitHeight ? "" : "h-96"}`}
+      className={`min-w-[300px] flex flex-col gap-y-4 ${unLimitHeight ? "" : "h-96"}`}
     >
       <div
         className={`grid gap-y-4 ${unLimitHeight ? "" : "overflow-y-scroll"} `}

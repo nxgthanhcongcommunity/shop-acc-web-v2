@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { HomeCarousel, Section } from "../conponents";
 import { selectMaster } from "../stores/features/masterSlice";
 import { useSelector } from "../stores/hooks";
+import PageContainer from "./pageContainer";
+import { IBanner } from "../models";
 
 const Home = () => {
   const masterData = useSelector(selectMaster);
@@ -16,17 +18,16 @@ const Home = () => {
   }, [masterData.loading, masterData.entity]);
 
   return (
-    <div className="max-w-screen-xl mx-auto pt-6 px-4">
+    <PageContainer>
+      <div className="h-6"></div>
       <HomeCarousel />
 
       {banners &&
-        banners.map((banner: any, index: number) => (
-          <React.Fragment key={banner.code}>
-            <Section banner={banner} />
-          </React.Fragment>
+        banners.map((banner: IBanner) => (
+          <Section key={banner.code} banner={banner} />
         ))}
       <div className="h-16"></div>
-    </div>
+    </PageContainer>
   );
 };
 

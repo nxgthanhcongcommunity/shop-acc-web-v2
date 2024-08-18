@@ -213,10 +213,10 @@ const router = createBrowserRouter(
         },
       ],
     },
-  ],
-  {
-    basename: "/web",
-  }
+  ]
+  // {
+  //   basename: "/web",
+  // }
 );
 
 function App() {

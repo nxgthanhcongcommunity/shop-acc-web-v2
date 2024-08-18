@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { vnpayTransactionApi } from "../../api";
 import { paramsToObject } from "../../utils";
+import PageContainer from "../pageContainer";
 
 interface IParams {
   vnp_Amount: string | null;
@@ -14,7 +15,6 @@ interface IParams {
 }
 
 const Received = () => {
-
   const [params, setParams] = useState<IParams>();
   const [isSucceed, setIsSucceed] = useState(false);
 
@@ -33,16 +33,14 @@ const Received = () => {
   const handleFakeIPN = () => {
     console.log(
       "http://localhost:4003/api/v1/vnpay-transaction/ipn" +
-      window.location.search,
+        window.location.search
     );
   };
 
   if (params == null) return <p>loading...</p>;
   if (!isSucceed) return <>có lỗi xải ra....</>;
 
-
   return (
-
     <div className="block p-6 bg-white border border-gray-200 rounded-lg shadow  dark:bg-gray-800 dark:border-gray-700 ">
       <h2 className="mb-6 text-xl font-medium text-hightLight">
         Bạn đã nạp thành công:{" "}
