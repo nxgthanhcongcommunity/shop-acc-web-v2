@@ -10,7 +10,7 @@ const PageContainer = (props: IPageContainerProps) => {
   const { isBreadcrumb, children } = props;
 
   return (
-    <div className="grow max-w-screen-xl mx-auto w-full flex flex-col px-4 md:px-0">
+    <div className="grow max-w-screen-xl mx-auto w-full flex flex-col px-4 md:px-0 min-h-[80vh]">
       {isBreadcrumb && <Breadcrumb />}
       {children}
     </div>

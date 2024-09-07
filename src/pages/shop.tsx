@@ -6,6 +6,7 @@ import { useGetProductsByKeysQuery } from "../stores/services/master-data-api";
 import PageContainer from "./pageContainer";
 import { useSelector } from "../stores/hooks";
 import CardItem from "../conponents/section/cardItem";
+import { Divider } from "antd";
 
 const Shop = () => {
   const { searchText } = useSelector((states) => states.app);
@@ -28,19 +29,21 @@ const Shop = () => {
 
   return (
     <PageContainer isBreadcrumb>
-      <div className="mt-4 md:mt-4 mb-2 flex justify-start gap-x-3">
+      <div className="my-4 flex justify-start gap-x-3">
         {searchText.length > 0 ? (
           <div className="flex items-baseline">
             Tìm kiếm: <SectionTitle title={searchText} tagTitle="VIP" />
           </div>
         ) : (
-          <SectionTitle title="record.name" tagTitle="VIP" />
+          <SectionTitle
+            title={searchParams.get("categoryCode") || searchText}
+            tagTitle="VIP"
+          />
         )}
-        -
-        <Tag tagTitle="100 sản phẩm" />
       </div>
+      <Divider />
       <ShopHeader />
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-1">
         {data.records.map((product: any) => {
           return (
             <CardItem

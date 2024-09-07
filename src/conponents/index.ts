@@ -2,7 +2,6 @@ export { default as Layout } from "./layout";
 export { default as HomeCarousel } from "./home-carousel";
 export { default as Section } from "./section";
 export { default as Breadcrumb } from "./breadcrumb";
-export { default as BreadcrumbItem } from "./breadcrumb/breadcrumbItem";
 export { default as SectionTitle } from "./section/sectionTitle";
 export { default as ShopHeader } from "./shop-header";
 export { default as ProductGallery } from "./product-gallery";

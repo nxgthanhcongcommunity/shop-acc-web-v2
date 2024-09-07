@@ -8,9 +8,9 @@ interface ISectionTitleProps {
 const SectionTitle = (props: ISectionTitleProps) => {
   const { title, tagTitle } = props;
   return (
-    <h1 className="flex items-center text-lg md:text-3xl font-bold dark:text-white gap-x-2">
+    <h1 className="flex items-center text-lg md:text-2xl font-bold dark:text-white gap-x-2">
       {title}
-      <Tag tagTitle={tagTitle} />
+      {tagTitle && <Tag tagTitle={tagTitle} />}
     </h1>
   );
 };

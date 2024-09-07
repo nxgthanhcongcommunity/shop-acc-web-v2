@@ -1,15 +1,14 @@
+import { BellOutlined } from "@ant-design/icons";
+import { Avatar } from "antd";
 import { useEffect, useState } from "react";
+import { accountApi } from "../../api";
+import { TOASTMSG_TYPES } from "../../constants";
 import { useOutsideClick } from "../../hooks";
 import { useToast } from "../../providers/toastProvider";
+import { useWebSocket } from "../../providers/webSocketProvider";
 import { RootState } from "../../stores";
 import { useSelector } from "../../stores/hooks";
-import IconButton from "../button/iconButton";
 import ICONS from "../icons";
-import { accountApi } from "../../api";
-import { useWebSocket } from "../../providers/webSocketProvider";
-import { TOASTMSG_TYPES } from "../../constants";
-import { Avatar } from "antd";
-import { MenuOutlined, SearchOutlined, BellOutlined } from "@ant-design/icons";
 
 const Notification = () => {
   const user = useSelector((state: RootState) => state.user);
@@ -24,7 +23,7 @@ const Notification = () => {
   const [toggle, setToggle] = useState(false);
 
   useEffect(() => {
-    const accountCode = user.entity?.code;
+    const accountCode = user?.code;
     if (accountCode == null) return;
 
     (async () => {
@@ -46,17 +45,14 @@ const Notification = () => {
         setNotifications(response.data.notifications);
       }
     })();
-  }, [toggle, user.entity]);
+  }, [toggle, user]);
 
   const ws = useWebSocket();
 
   const handleMessage = (event: MessageEvent) => {
     const message = JSON.parse(event.data);
 
-    if (
-      message.type === "BALANCE" &&
-      message.accountCode === user.entity?.code
-    ) {
+    if (message.type === "BALANCE" && message.accountCode === user?.code) {
       setNotifications((prevNotifications: any) => [
         message,
         ...prevNotifications,
@@ -93,14 +89,14 @@ const Notification = () => {
     setToggle((prev) => !prev);
   };
 
-  if (user.entity == null) {
+  if (user == null) {
     return <></>;
   }
   return (
     <div className="relative" ref={dropDownRef}>
       <div>
         <span onClick={handleClick}>
-          <Avatar shape="square" icon={<BellOutlined />} />
+          <Avatar size="large" shape="square" icon={<BellOutlined />} />
         </span>
       </div>
       {isShow && (

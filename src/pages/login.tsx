@@ -1,15 +1,5 @@
-import { GoogleOAuthProvider } from "@react-oauth/google";
-import { Breadcrumb } from "../conponents";
 import { LoginBody } from "../container";
 import PageContainer from "./pageContainer";
-
-// const Login = () => {
-//   return (
-//     <GoogleOAuthProvider clientId="231862296302-f7k64pkrnf3btno0837dv0egdt6h57hg.apps.googleusercontent.com">
-//       <LoginContainer />
-//     </GoogleOAuthProvider>
-//   );
-// };
 
 const LoginContainer = () => {
   return (

@@ -1,9 +1,12 @@
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { ICONS } from "../../conponents";
-import { useDispatch, useSelector } from "../../stores/hooks";
 import { GoogleOAuthProvider, useGoogleLogin } from "@react-oauth/google";
-import { GoogleLoginAsync } from "../../stores/features/userSlice";
+import { jwtDecode, JwtPayload } from "jwt-decode";
 import { useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { accountApi, authApi } from "../../api";
+import { ICONS } from "../../conponents";
+import { LOCALSTORAGE_KEYS } from "../../constants";
+import { useDispatch, useSelector } from "../../stores/hooks";
+import { addUser } from "../../stores/features/userSlice";
 
 const LoginBodyWrapper = () => {
   return (
@@ -12,6 +15,11 @@ const LoginBodyWrapper = () => {
     </GoogleOAuthProvider>
   );
 };
+
+interface IDecoded extends JwtPayload {
+  accountCode: string;
+  roles: string[];
+}
 
 const LoginBody = () => {
   const user = useSelector((states) => states.user);
@@ -22,14 +30,40 @@ const LoginBody = () => {
 
   const handleGoogleLogin = useGoogleLogin({
     onSuccess: async (credential) => {
-      dispatch(GoogleLoginAsync(credential));
+      const response = await authApi.LoginWithGoogle({
+        accessToken: credential.access_token,
+      });
+
+      if (response.succeed === false) return;
+
+      const { token, refreshToken } = response.data;
+      localStorage.setItem(LOCALSTORAGE_KEYS.ACCESS_TOKEN, token);
+      localStorage.setItem(LOCALSTORAGE_KEYS.REFRESH_TOKEN, refreshToken);
+
+      const { accountCode } = jwtDecode<IDecoded>(token);
+
+      const getAccountByCodeResponse = await accountApi.GetAccountByCode({
+        accountCode,
+      });
+      if (!getAccountByCodeResponse.succeed) return;
+
+      dispatch(
+        addUser({
+          code: getAccountByCodeResponse.data.code,
+          email: getAccountByCodeResponse.data.email,
+          familyName: getAccountByCodeResponse.data.familyName,
+          givenName: getAccountByCodeResponse.data.givenName,
+          photo: getAccountByCodeResponse.data.photo,
+          amount: getAccountByCodeResponse.data.amount,
+        })
+      );
     },
   });
 
   useEffect(() => {
-    if (user.isLogged === false) return;
+    if (user === null) return;
     navigate(searchParams.get("redirect-from") || "/");
-  }, [navigate, searchParams, user.isLogged]);
+  }, [navigate, searchParams, user]);
 
   return (
     <div className="p-4 md:p-5">
@@ -39,7 +73,6 @@ const LoginBody = () => {
       <ul className="my-4 space-y-3">
         <li>
           <div
-            // onClick={() => handleGoogleLogin()}
             onClick={() => handleGoogleLogin()}
             className="cursor-pointer flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white"
           >

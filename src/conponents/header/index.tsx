@@ -1,51 +1,35 @@
-import { Button, Dropdown, Flex, MenuProps, Space, Typography } from "antd";
+import { Button, Dropdown, Image, Menu, MenuProps } from "antd";
 import { Link } from "react-router-dom";
-import { ICONS, MobileMenu } from "..";
+import { MobileMenu } from "..";
 import { ROUTER } from "../../constants";
-import Logo from "../logo";
 import Notification from "../notification";
 import UserHeader from "../user-header";
+import styled from "styled-components";
 
-import { MenuOutlined, SearchOutlined } from "@ant-design/icons";
+import {
+  CreditCardOutlined,
+  MenuOutlined,
+  PicLeftOutlined,
+} from "@ant-design/icons";
 import Search, { SearchProps } from "antd/es/input/Search";
+
+const StyledMenu = styled(Menu)`
+  .ant-menu-submenu-title::after {
+    border-bottom: none !important;
+  }
+`;
 
 const Header = () => {
   const items: MenuProps["items"] = [
     {
-      key: "1",
-      label: (
-        <Link to={ROUTER.ACCOUNT_RECHARGE}>
-          <Flex
-            align="baseline"
-            style={{
-              width: "150px",
-            }}
-          >
-            <Space>
-              <ICONS.RECHARGE />
-              Nạp thẻ
-            </Space>
-          </Flex>
-        </Link>
-      ),
+      key: "Nạp thẻ",
+      icon: <CreditCardOutlined />,
+      label: <Link to={ROUTER.ACCOUNT_RECHARGE}>Nạp thẻ</Link>,
     },
     {
-      key: "2",
-      label: (
-        <Link to={ROUTER.NEWS}>
-          <Flex
-            align="baseline"
-            style={{
-              width: "150px",
-            }}
-          >
-            <Space>
-              <ICONS.NEWSPAPER />
-              Tin tức
-            </Space>
-          </Flex>
-        </Link>
-      ),
+      key: "Tin tức",
+      icon: <PicLeftOutlined />,
+      label: <Link to={ROUTER.NEWS}>Tin tức</Link>,
     },
   ];
 
@@ -53,33 +37,40 @@ const Header = () => {
     console.log(info?.source, value);
 
   return (
-    <nav className="bg-white border-b border-gray-200 dark:bg-gray-800 fixed left-0 top-0 w-full z-40">
+    <nav className="bg-white border-b border-gray-200 dark:bg-gray-800 fixed left-0 top-0 w-full z-40 h-20">
       <div className="flex flex-wrap items-center justify-between max-w-screen-xl mx-auto p-4">
         <div className="flex items-center gap-x-12">
-          <Logo />
-          <Dropdown
-            menu={{
-              items,
-              selectable: true,
-              defaultSelectedKeys: [""],
-            }}
+          <Link
+            to={ROUTER.ROOT}
+            className="flex items-center space-x-3 rtl:space-x-reverse"
           >
-            <Button icon={<MenuOutlined />}>Menu</Button>
+            <Image
+              preview={false}
+              height={20}
+              src="https://res.cloudinary.com/dntsyzdh3/image/upload/v1723905175/shop-acc/logoLyHuy_dckaud.png"
+            />
+          </Link>
+          <Dropdown menu={{ items }}>
+            <span>Danh mục</span>
           </Dropdown>
         </div>
         <div className="hidden md:block">
           <Search
-            placeholder="input search text"
+            size="large"
+            placeholder="Nhập để tìm kiếm"
             onSearch={onSearch}
             enterButton
             style={{
-              width: "500px",
+              height: "40px",
+              width: "400px",
             }}
           />
         </div>
         <div className="flex items-center gap-x-4">
           <Link to={ROUTER.ACCOUNT_RECHARGE}>
-            <Button type="primary">Nạp thẻ</Button>
+            <Button type="primary" size="large">
+              Nạp thẻ
+            </Button>
           </Link>
           <div className="hidden md:block">
             <Notification />

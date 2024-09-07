@@ -26,11 +26,11 @@ const Recharge = () => {
 
   const handlePayment = async (props: any) => {
     const { provider, bankCode, amount } = props;
-    if (!user.entity) {
+    if (!user) {
       return;
     }
     await providerHandler[provider]({
-      accountCode: user.entity.code,
+      accountCode: user.code,
       bankCode,
       amount,
     });

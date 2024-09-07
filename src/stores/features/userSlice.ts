@@ -1,71 +1,24 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { JwtPayload, jwtDecode } from "jwt-decode";
-import { accountApi, authApi } from "../../api";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { LOCALSTORAGE_KEYS } from "../../constants";
 
-interface IAccount {
+interface IState {
   code: string;
   email: string;
+  familyName: string;
+  givenName: string;
+  photo: string;
+  amount: number;
 }
-
-interface IState {
-  isLogged: boolean;
-  entity: IAccount | null;
-  loading: boolean;
-}
-
-interface IDecoded extends JwtPayload {
-  accountCode: string;
-  roles: string[];
-}
-
-export const GoogleLoginAsync = createAsyncThunk(
-  "userSlice/GoogleLoginAsync",
-  async (credential: any, thunkAPI) => {
-    const response = await authApi.LoginWithGoogle({
-      accessToken: credential.access_token,
-    });
-    if (response.succeed === false) return;
-
-    const { token, refreshToken } = response.data;
-    localStorage.setItem(LOCALSTORAGE_KEYS.ACCESS_TOKEN, token);
-    localStorage.setItem(LOCALSTORAGE_KEYS.REFRESH_TOKEN, refreshToken);
-
-    const { accountCode } = jwtDecode<IDecoded>(token);
-    thunkAPI.dispatch(GetAccountByCode(accountCode));
-
-    return true;
-  }
-);
-
-export const GetAccountByCode = createAsyncThunk(
-  "userSlice/GetAccountByCode",
-  async (accountCode: string, { rejectWithValue }) => {
-    const { succeed, data } = await accountApi.GetAccountByCode({
-      accountCode,
-    });
-    if (!succeed) return;
-    return data;
-  }
-);
 
 const loadState = () => {
   try {
     const serializedState = localStorage.getItem(LOCALSTORAGE_KEYS.LOCAL_USER);
     if (serializedState == null) {
-      return {
-        entity: null,
-        loading: true,
-        isLogged: false,
-      };
+      return null;
     }
     return JSON.parse(serializedState) as IState;
   } catch (err) {
-    return {
-      entity: null,
-      loading: true,
-      isLogged: false,
-    };
+    return null;
   }
 };
 
@@ -76,32 +29,24 @@ const saveState = (state: IState) => {
   } catch (err) {}
 };
 
-const initialState: IState = loadState();
+const initialState: IState | null = loadState();
 
 const userSlice = createSlice({
   name: "userSlice",
   initialState,
   reducers: {
-    removeUserInfo: (state) => {
-      state.entity = null;
-      state.isLogged = false;
-      state.loading = false;
-
+    removeUser: (state) => {
       localStorage.removeItem(LOCALSTORAGE_KEYS.ACCESS_TOKEN);
       localStorage.removeItem(LOCALSTORAGE_KEYS.REFRESH_TOKEN);
-
-      saveState(state);
+      localStorage.removeItem(LOCALSTORAGE_KEYS.LOCAL_USER);
+      return null;
     },
-  },
-  extraReducers: (builder) => {
-    builder.addCase(GetAccountByCode.fulfilled, (state, action) => {
-      state.loading = false;
-      state.entity = action.payload;
-      state.isLogged = true;
-      saveState(state);
-    });
+    addUser: (state, action: PayloadAction<IState>) => {
+      saveState(action.payload);
+      return action.payload;
+    },
   },
 });
 
-export const { removeUserInfo } = userSlice.actions;
+export const { removeUser, addUser } = userSlice.actions;
 export default userSlice.reducer;

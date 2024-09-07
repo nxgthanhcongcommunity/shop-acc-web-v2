@@ -5,7 +5,7 @@ import { useSelector } from "../../stores/hooks";
 
 const Account = () => {
   const user = useSelector((state: RootState) => state.user);
-  if (user.isLogged) {
+  if (user) {
     return <UserDropdownContent unLimitHeight />;
   }
 

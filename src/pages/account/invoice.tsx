@@ -4,150 +4,63 @@ import { useToast } from "../../providers/toastProvider";
 import { useSelector } from "../../stores/hooks";
 import invoiceApi from "../../api/invoiceApi";
 import { TOASTMSG_TYPES } from "../../constants";
+import { Table } from "antd";
 
 const Invoice = () => {
+  const { addToastMessage } = useToast();
+  const identity = useSelector((states) => states.user);
+  const [invoices, setInvoices] = useState<IInvoice[]>([]);
 
-    const { addToastMessage } = useToast();
-    const user = useSelector(states => states.user);
-    const [invoices, setInvoices] = useState<IInvoice[]>([]);
-    const accountCode = user.entity?.code;
-    useEffect(() => {
-        (async () => {
-            if (accountCode == null) return;
-            const response = await invoiceApi.GetPurchaseHistoryAsync({ accountCode });
-            if (response.succeed == false) {
-                addToastMessage({
-                    id: "",
-                    type: TOASTMSG_TYPES.ERROR,
-                    title: "Có lỗi xảy ra",
-                    content: "Lấy thông tin Lịch sử mua hàng không thành công"
-                })
-            }
+  useEffect(() => {
+    (async () => {
+      if (identity == null) return;
+      const { succeed, data } = await invoiceApi.GetPurchaseHistoryAsync({
+        accountCode: identity.code,
+      });
+      if (!succeed) {
+        addToastMessage({
+          id: "",
+          type: TOASTMSG_TYPES.ERROR,
+          title: "Có lỗi xảy ra",
+          content: "Lấy thông tin Lịch sử mua hàng không thành công",
+        });
+      }
 
-            setInvoices(response.data.records);
-        })()
-    }, [accountCode])
+      console.log(data);
 
-    return (
-        <div className="relative bg-white rounded-lg shadow dark:bg-gray-700 p-4 border">
-            <h2 className="font-semibold text-md mb-4">Lịch sử mua hàng</h2>
-            <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                    <thead className="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
-                        <tr>
-                            <th scope="col" className="px-6 py-3">
-                                Mã đơn hàng
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                Số tiền
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                Trạng thái
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                Ngày mua hàng
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                Tài khoản
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            invoices.map(record => (
-                                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                    <th
-                                        scope="row"
-                                        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                                    >
-                                        {record.code}
-                                    </th>
-                                    <td className="px-6 py-4">{record.totalAmount}</td>
-                                    <td className="px-6 py-4">{record.paymentStatus}</td>
-                                    <td className="px-6 py-4">{record.createdAt}</td>
-                                    <td className="px-6 py-4">{record.invoiceDetails.map(record => (
-                                        <p>{record.product.name}: {record.unitPrice}</p>
-                                    ))}</td>
-                                </tr>
-                            ))
-                        }
-                    </tbody>
-                </table>
-                <nav
-                    className="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4"
-                    aria-label="Table navigation"
-                >
-                    <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
-                        Showing{" "}
-                        <span className="font-semibold text-gray-900 dark:text-white">1-10</span>{" "}
-                        of{" "}
-                        <span className="font-semibold text-gray-900 dark:text-white">1000</span>
-                    </span>
-                    <ul className="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
-                        <li>
-                            <a
-                                href="#"
-                                className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                            >
-                                Previous
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="#"
-                                className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                            >
-                                1
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="#"
-                                className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                            >
-                                2
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="#"
-                                aria-current="page"
-                                className="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
-                            >
-                                3
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="#"
-                                className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                            >
-                                4
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="#"
-                                className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                            >
-                                5
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="#"
-                                className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                            >
-                                Next
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
+      setInvoices(data.records);
+    })();
+  }, [identity]);
 
+  const columns = [
+    {
+      title: "Mã đơn hàng",
+      dataIndex: "code",
+      key: "code",
+    },
+    {
+      title: "Ngày mua",
+      dataIndex: "createdAt",
+      key: "createdAt",
+    },
+    {
+      title: "Giảm giá",
+      dataIndex: "discount",
+      key: "discount",
+    },
+    {
+      title: "Trạng thái",
+      dataIndex: "paymentStatus",
+      key: "paymentStatus",
+    },
+    {
+      title: "Số tiền",
+      dataIndex: "totalAmount",
+      key: "totalAmount",
+    },
+  ];
 
-    )
+  return <Table dataSource={invoices} columns={columns} />;
 };
 
 export default Invoice;

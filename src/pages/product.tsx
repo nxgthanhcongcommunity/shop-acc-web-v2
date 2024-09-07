@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
-import { Breadcrumb, ProductGallery, SectionTitle } from "../conponents";
+import { ProductGallery, SectionTitle } from "../conponents";
 import ReviewModal from "../conponents/review-modal";
 import { ROUTER } from "../constants";
 import { RootState } from "../stores";
@@ -52,7 +52,7 @@ const Product = () => {
   const { product, relatedProducts } = record;
 
   const handleBuyClick = () => {
-    if (!user.isLogged) {
+    if (!user) {
       navigate(
         `${ROUTER.LOGIN}?redirect-from=${location.pathname}${location.search}`
       );

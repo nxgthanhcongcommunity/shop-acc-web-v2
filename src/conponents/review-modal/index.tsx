@@ -19,7 +19,7 @@ const ReviewModal = (props: IReviewModalProps) => {
   const handlePayment = async () => {
     const invoice = {
       totalAmount: product.price,
-      accountCode: user.entity?.code,
+      accountCode: user?.code,
     };
 
     const invoiceDetails = [
