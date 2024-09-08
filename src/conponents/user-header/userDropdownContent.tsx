@@ -24,8 +24,6 @@ const UserDropdownContent = (props: IUserDropdownContentProps) => {
 
   const identity = useSelector((states) => states.user);
 
-  console.log(identity?.photo);
-
   return (
     <div
       className={`min-w-[300px] flex flex-col gap-y-4 ${unLimitHeight ? "" : "h-96"}`}

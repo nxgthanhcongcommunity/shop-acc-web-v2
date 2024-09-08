@@ -1,25 +1,34 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
-import { store } from "./stores";
+import App from "./App";
+import "./index.css";
 import { ToastProvider, WebSocketProvider } from "./providers";
-import { GoogleOAuthProvider } from "@react-oauth/google";
+import reportWebVitals from "./reportWebVitals";
+import { store } from "./stores";
+import { ConfigProvider } from "antd";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 
 root.render(
-  // <React.StrictMode>
-
-  // </React.StrictMode>
   <Provider store={store}>
     <WebSocketProvider>
       <ToastProvider>
-        <App />
+        <ConfigProvider
+          theme={{
+            token: {
+              // Seed Token
+              colorPrimary: "#ffc53d",
+              // borderRadius: 2,
+
+              // // Alias Token
+              // colorBgContainer: "#f6ffed",
+            },
+          }}
+        >
+          <App />
+        </ConfigProvider>
       </ToastProvider>
     </WebSocketProvider>
   </Provider>

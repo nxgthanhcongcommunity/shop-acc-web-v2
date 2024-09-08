@@ -1,53 +1,50 @@
+import { Divider } from "antd";
+import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { SectionTitle, ShopHeader } from "../conponents";
-import Tag from "../conponents/tag";
-import { ROUTER } from "../constants";
+import CardItem from "../conponents/section/cardItem";
+import { ROUTER, SORT_ITEMS } from "../constants";
+import { useSelector } from "../stores/hooks";
 import { useGetProductsByKeysQuery } from "../stores/services/master-data-api";
 import PageContainer from "./pageContainer";
-import { useSelector } from "../stores/hooks";
-import CardItem from "../conponents/section/cardItem";
-import { Divider } from "antd";
 
 const Shop = () => {
   const { searchText } = useSelector((states) => states.app);
 
   const [searchParams] = useSearchParams();
 
-  const { isError, isLoading, data } = useGetProductsByKeysQuery({
+  const [selectedCondition, setSelectedCondition] = useState(
+    `${SORT_ITEMS[0].column}-${SORT_ITEMS[0].direction}`
+  );
+
+  const { data } = useGetProductsByKeysQuery({
     categoryCode: searchParams.get("categoryCode"),
-    searchText,
+    column: selectedCondition.split("-")[0],
+    direction: selectedCondition.split("-")[1],
   });
 
-  if (
-    isLoading ||
-    isError ||
-    data.records == null ||
-    data.records.length === 0
-  ) {
+  console.log(data);
+
+  if (data == null) {
     return null;
   }
 
   return (
     <PageContainer isBreadcrumb>
-      <div className="my-4 flex justify-start gap-x-3">
-        {searchText.length > 0 ? (
-          <div className="flex items-baseline">
-            Tìm kiếm: <SectionTitle title={searchText} tagTitle="VIP" />
-          </div>
-        ) : (
-          <SectionTitle
-            title={searchParams.get("categoryCode") || searchText}
-            tagTitle="VIP"
-          />
-        )}
-      </div>
+      <SectionTitle
+        title={searchParams.get("categoryCode") || searchText}
+        tagTitle="VIP"
+      />
       <Divider />
-      <ShopHeader />
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-1">
+      <ShopHeader
+        selectedCondition={selectedCondition}
+        setSelectedCondition={setSelectedCondition}
+      />
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {data.records.map((product: any) => {
           return (
             <CardItem
-              isActived={product.quantity.currentQuantity > 0}
+              isActived={product.currentQuantity > 0}
               key={product.code}
               href={`${ROUTER.PRODUCT}?productCode=${product.code}`}
               imgId={product.mainFileCLDId}
@@ -60,7 +57,7 @@ const Shop = () => {
                   key={"Số lượng"}
                   className="text-sm font-medium text-gray-700"
                 >
-                  Số lượng: {product.quantity.currentQuantity}
+                  Số lượng: {product.currentQuantity}
                 </p>,
                 <p
                   key={"Gem/Chono"}
@@ -73,7 +70,6 @@ const Shop = () => {
           );
         })}
       </div>
-      {/* <Section banner={undefined} /> */}
       <div className="h-12"></div>
     </PageContainer>
   );
